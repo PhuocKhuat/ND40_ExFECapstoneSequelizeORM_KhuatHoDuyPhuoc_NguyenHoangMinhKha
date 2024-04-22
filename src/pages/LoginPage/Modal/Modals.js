@@ -15,7 +15,8 @@ const Modals = () => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" 
+      onClick={showModal}>
         Login/ Signup
       </Button>
       <Modal

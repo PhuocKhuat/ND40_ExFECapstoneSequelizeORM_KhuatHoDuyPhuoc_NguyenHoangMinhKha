@@ -4,12 +4,17 @@ import "../../../common/styleCommon.css";
 import "./styleLogin.scss";
 import { Button } from "antd";
 import { loginValidation } from "../../../validation/validateLogin";
+import { useDispatch } from "react-redux";
+import { POST_LOGIN_SAGA } from "../../../action/action";
 
 export default function LoginPage() {
   const initialValues = {
     email: "",
     password: "",
   };
+
+  const dispatch = useDispatch();
+
   const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: initialValues,
     validationSchema: loginValidation,
@@ -62,7 +67,14 @@ export default function LoginPage() {
                   Login
                 </Button>
               ) : (
-                <Button className="bg-blue-500 mt-5 w-full">Login</Button>
+                <Button
+                  className="bg-blue-500 mt-5 w-full"
+                  onClick={() => {
+                    dispatch({ type: POST_LOGIN_SAGA, payload: values });
+                  }}
+                >
+                  Login
+                </Button>
               )}
             </div>
           </Form>
