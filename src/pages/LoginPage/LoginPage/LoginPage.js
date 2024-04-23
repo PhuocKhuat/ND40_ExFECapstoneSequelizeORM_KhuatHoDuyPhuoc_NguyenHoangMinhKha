@@ -71,6 +71,7 @@ export default function LoginPage() {
                   className="bg-blue-500 mt-5 w-full"
                   onClick={() => {
                     dispatch({ type: POST_LOGIN_SAGA, payload: values });
+                    // console.log("🚀 ~ LoginPage ~ values:", values);
                   }}
                 >
                   Login

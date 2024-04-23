@@ -2,7 +2,7 @@ import { GET_IMG_LIST, POST_LOGIN } from "../action/action";
 
 const initialState = {
   imgList: [],
-  users: null,
+  users: JSON.parse(localStorage.getItem("LOGIN_USER")),
 };
 
 export let reducer = (state = initialState, { type, payload }) => {
@@ -11,7 +11,7 @@ export let reducer = (state = initialState, { type, payload }) => {
       return { ...state, imgList: payload };
 
     case POST_LOGIN:
-      return { ...state, imgList: payload };
+      return { ...state, users: payload };
 
     default:
       return state;

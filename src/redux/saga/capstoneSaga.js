@@ -23,15 +23,18 @@ function* getImgListAction() {
 
 function* postLoginAction(action) {
   const { payload } = action;
+  // console.log("🚀 ~ function*postLoginAction ~ payload:", payload)
 
   try {
-    const { data } = yield call(capstoneService.postLogin(payload));
+    const { data } = yield call(capstoneService.postLogin, payload);
 
     if (data.status === 200) {
       yield put({
         type: POST_LOGIN,
-        payload: data.data,
+        payload: data,
       })
+      localStorage.setItem("LOGIN_USER", JSON.stringify(data));
+      window.location.reload();
     }
 
   } catch (error) {

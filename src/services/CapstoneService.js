@@ -5,9 +5,9 @@ export class CapstoneService {
     return http.get("/image/get-image-list");
   };
 
-  postLogin = (data)=>{
+  postLogin = (data) => {
     return http.post("/user/login", data);
-  }
+  };
 }
 
 export const capstoneService = new CapstoneService();

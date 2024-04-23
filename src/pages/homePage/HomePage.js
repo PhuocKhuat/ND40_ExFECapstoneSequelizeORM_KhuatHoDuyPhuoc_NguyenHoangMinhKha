@@ -5,7 +5,7 @@ import '../../common/styleCommon.css'
 
 export default function HomePage() {
   return (
-    <div className='homePage'>
+    <div className='homePage mt-10'>
       <div className='container'>
         <SearchImage/>
         <ImageList/>

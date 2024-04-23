@@ -3,7 +3,6 @@ import React from "react";
 import "./styleImageList.scss";
 import AddImage from "./AddImage/AddImage";
 import { BellOutlined } from "@ant-design/icons";
-import Modals from "../../LoginPage/Modal/Modals";
 
 export default function SearchImage() {
   const initialValues = {
@@ -31,7 +30,6 @@ export default function SearchImage() {
         </Form>
       </Formik>
       <BellOutlined className="mx-5 text-2xl" />
-      <Modals/>
     </div>
   );
 }
