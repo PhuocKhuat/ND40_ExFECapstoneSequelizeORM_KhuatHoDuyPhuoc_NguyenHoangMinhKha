@@ -85,6 +85,12 @@ function* getSearchAction(action) {
   } catch (error) {
 
     console.log("🚀 ~ function*getSearchAction ~ error:", error);
+
+    yield put({
+      type: SEARCH_IMAGE,
+      payload: ""
+    })
+    return;
   }
 }
 
