@@ -3,14 +3,19 @@ import React from "react";
 import "./styleSignup.scss";
 import { Button } from "antd";
 import { loginValidation } from "../../../validation/validateLogin";
+import { useDispatch } from "react-redux";
+import { POST_SIGNUP_SAGA } from "../../../action/action";
 
 export default function SignupPage() {
+  const dispatch = useDispatch();
+
   const initialValues = {
     email: "",
     password: "",
     fullName: "",
     age: "",
   };
+
   const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: initialValues,
     validationSchema: loginValidation,
@@ -81,12 +86,14 @@ export default function SignupPage() {
               {errors.age && <p className="text-red-500">{errors.age}</p>}
             </div>
             <div>
-              {errors.email || errors.password ? (
+              {errors.email || errors.password || errors.fullName || errors.password ? (
                 <Button className="bg-blue-500 mt-5 w-full" disabled>
                   Signup
                 </Button>
               ) : (
-                <Button className="bg-blue-500 mt-5 w-full">Signup</Button>
+                <Button className="bg-blue-500 mt-5 w-full" onClick={()=>{
+                 dispatch({type: POST_SIGNUP_SAGA, payload: values})
+                }}>Signup</Button>
               )}
             </div>
           </Form>

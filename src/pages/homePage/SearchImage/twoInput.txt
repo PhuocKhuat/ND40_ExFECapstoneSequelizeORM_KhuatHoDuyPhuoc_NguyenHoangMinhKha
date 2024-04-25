@@ -1,0 +1,58 @@
+import { Field, Form, Formik, useFormik } from "formik";
+import React from "react";
+import "./styleImageList.scss";
+import AddImage from "./AddImage/AddImage";
+import { BellOutlined } from "@ant-design/icons";
+
+export default function SearchImage() {
+  const initialValues = {
+    searchImage: "",
+    searchImage2: "",
+  };
+  const { values, handleChange, handleSubmit, resetForm } = useFormik({
+    initialValues: initialValues,
+    onSubmit: (values) => {
+      console.log("🚀 ~ SearchImage ~ values:", values) 
+      console.log(123)
+      resetForm()
+    }
+  });
+  return (
+    <div className="homeBar flex">
+      <AddImage />
+      <Formik initialValues={initialValues}>
+        <Form className="formHome ms-4" onSubmit={handleSubmit}>
+          <Field
+            type="text"
+            name="searchImage"
+            value= {values.searchImage}
+            onChange = {handleChange}
+            className="searchImage rounded-3xl outline-none"
+            placeholder= "Search Image"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của input khi nhấn Enter
+                handleSubmit(); // Gọi hàm handleSubmit khi nhấn Enter
+              }
+            }}
+          />
+          <Field
+            type="text"
+            name="searchImage2"
+            value= {values.searchImage2}
+            onChange = {handleChange}
+            className="searchImage rounded-3xl outline-none"
+            placeholder= "Search Image"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của input khi nhấn Enter
+                handleSubmit(); // Gọi hàm handleSubmit khi nhấn Enter
+              }
+            }}
+          />
+        </Form>
+      </Formik>
+      <BellOutlined className="mx-5 text-2xl" />
+    </div>
+  );
+}

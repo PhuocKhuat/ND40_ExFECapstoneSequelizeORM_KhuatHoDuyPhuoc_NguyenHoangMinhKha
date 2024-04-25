@@ -3,29 +3,36 @@ import React from "react";
 import "./styleImageList.scss";
 import AddImage from "./AddImage/AddImage";
 import { BellOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { SEARCH_IMAGE_SAGE } from "../../../action/action";
 
 export default function SearchImage() {
+  const dispatch = useDispatch();
+
   const initialValues = {
     searchImage: "",
   };
-  const { values, handleChange, handleSubmit } = useFormik({
+  const { values, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      console.log("🚀 ~ SearchImage ~ values:", values)      
-    }
+      console.log("🚀 ~ SearchImage ~ values:", values.searchImage);
+      resetForm();
+      dispatch({ type: SEARCH_IMAGE_SAGE, payload: values.searchImage });
+    },
   });
+
   return (
     <div className="homeBar flex">
       <AddImage />
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form className="formHome ms-4">
+      <Formik initialValues={initialValues}>
+        <Form className="formHome ms-4" onSubmit={handleSubmit}>
           <Field
             type="text"
             name="searchImage"
-            value= {values.searchImage}
-            onChange = {handleChange}
+            value={values.searchImage}
+            onChange={handleChange}
             className="searchImage rounded-3xl outline-none"
-            placeholder= "Search Image"
+            placeholder="Search Image"
           />
         </Form>
       </Formik>

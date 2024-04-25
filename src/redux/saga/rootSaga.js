@@ -1,9 +1,11 @@
 import { all } from "redux-saga/effects";
-import { previewActionImgList, previewLoginAction } from "./capstoneSaga";
+import { previewActionImgList, previewLoginAction, previewSearchAction, previewSignupAction } from "./capstoneSaga";
 
 export default function* rootSaga() {
   yield all([
     previewActionImgList(),
-    previewLoginAction()
+    previewLoginAction(),
+    previewSignupAction(),
+    previewSearchAction()
   ]);
 }

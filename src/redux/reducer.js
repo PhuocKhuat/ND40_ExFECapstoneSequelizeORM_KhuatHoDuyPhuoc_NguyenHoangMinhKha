@@ -1,8 +1,7 @@
-import { GET_IMG_LIST, POST_LOGIN } from "../action/action";
+import { GET_IMG_LIST, SEARCH_IMAGE } from "../action/action";
 
 const initialState = {
   imgList: [],
-  users: JSON.parse(localStorage.getItem("LOGIN_USER")),
 };
 
 export let reducer = (state = initialState, { type, payload }) => {
@@ -10,8 +9,8 @@ export let reducer = (state = initialState, { type, payload }) => {
     case GET_IMG_LIST:
       return { ...state, imgList: payload };
 
-    case POST_LOGIN:
-      return { ...state, users: payload };
+    case SEARCH_IMAGE:
+      return { ...state, imgList: payload };
 
     default:
       return state;

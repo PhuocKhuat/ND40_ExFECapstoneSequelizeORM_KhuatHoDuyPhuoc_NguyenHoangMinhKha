@@ -8,13 +8,13 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import { reducer } from "./redux/reducer";
 import rootSaga from "./redux/saga/rootSaga";
 import { Provider } from "react-redux";
-import { previewActionImgList } from "./redux/saga/capstoneSaga";
+import { reducerLogin } from "./redux/reducerLogin";
 
 const middleWareSaga = createMiddleWareSage();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const rootReducer = combineReducers({reducer})
+const rootReducer = combineReducers({reducer, reducerLogin})
 
 let store = createStore(rootReducer, applyMiddleware(middleWareSaga));
 

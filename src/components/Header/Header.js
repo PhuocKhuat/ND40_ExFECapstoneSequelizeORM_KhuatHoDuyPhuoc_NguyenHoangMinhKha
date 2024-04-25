@@ -5,7 +5,7 @@ import "./styleHeader.scss";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const { users } = useSelector((state) => state.reducer);
+  const { users } = useSelector((state) => state.reducerLogin);
   console.log("🚀 ~ Header ~ users:", users);
   const renderUsers = () => {
     if (users) {
