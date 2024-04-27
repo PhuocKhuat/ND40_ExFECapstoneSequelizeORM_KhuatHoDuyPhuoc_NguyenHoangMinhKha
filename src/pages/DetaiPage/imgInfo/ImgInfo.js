@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import "../../../common/styleCommon.css";
 import { useDispatch, useSelector } from "react-redux";
-import { BASE_IMG_URL, GET_COMMENT_INFO_SAGA, GET_IMG_INFO_SAGA } from "../../../action/action";
+import {
+  BASE_IMG_URL,
+  GET_COMMENT_INFO_SAGA,
+  GET_IMG_INFO_SAGA,
+  SAVE_IMAGE_SAGA,
+} from "../../../action/action";
 import "./styleImgInfo.scss";
 import CommentInfo from "../CommentInfo/CommentInfo";
 import { useParams } from "react-router-dom";
@@ -12,10 +17,11 @@ export default function ImgInfo() {
   const { imgId } = useParams();
   // console.log("🚀 ~ ImgInfo ~ imgId:", imgId)
   const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch({type: GET_IMG_INFO_SAGA, payload: imgId})
-    dispatch({type: GET_COMMENT_INFO_SAGA, payload: imgId})
-  },[]);
+
+  useEffect(() => {
+    dispatch({ type: GET_IMG_INFO_SAGA, payload: imgId });
+    dispatch({ type: GET_COMMENT_INFO_SAGA, payload: imgId });
+  }, [imgId]);
 
   return (
     <section className="text-gray-600 body-font overflow-hidden imgInfo">
@@ -27,9 +33,20 @@ export default function ImgInfo() {
             src={`${BASE_IMG_URL}/${imgInfo.imgUrl}`}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 className="text-xl title-font text-gray-500 tracking-widest">
-              {imgInfo.user.fullName}
-            </h2>
+            <div className="flex justify-between">
+              <div>
+                <h2 className="text-xl title-font text-gray-500 tracking-widest">
+                  {imgInfo.user.fullName}
+                </h2>
+              </div>
+              <div>
+                <button className="rounded-2xl bg-red-500 text-white p-2 me-5" onClick={()=>{
+                  dispatch({type: SAVE_IMAGE_SAGA, payload: imgId})
+                }}>
+                  Save image
+                </button>
+              </div>
+            </div>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
               {imgInfo.imgName}
             </h1>
@@ -132,7 +149,7 @@ export default function ImgInfo() {
               </span>
             </div>
             <p className="leading-relaxed">{imgInfo.description}</p>
-            <CommentInfo imgId={imgInfo.img}/>
+            <CommentInfo imgId={imgInfo.img} />
           </div>
         </div>
       </div>

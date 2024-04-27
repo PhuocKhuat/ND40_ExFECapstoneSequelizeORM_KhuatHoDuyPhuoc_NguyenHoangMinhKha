@@ -1,16 +1,40 @@
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, useFormik } from "formik";
 import React from "react";
 import "./styleCommentInfo.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LikeOutlined } from "@ant-design/icons";
+import { ADD_COMMENT_SAGA } from "../../../action/action";
+import { useParams } from "react-router-dom";
 
 export default function CommentInfo() {
   const { commentInfo } = useSelector((state) => state.reducerDetail);
-  console.log("🚀 ~ CommentInfo ~ commentInfo:", commentInfo);
+  // console.log("🚀 ~ CommentInfo ~ commentInfo:", commentInfo);
+
+  const { imgId } = useParams();
+  // console.log("🚀 ~ CommentInfo ~ imgId:", typeof(imgId))
+
+  const dispatch = useDispatch();
+
+  const initialValues = {
+    addComment: "",
+  };
+
+  const { values, handleChange, handleBlur, handleSubmit, resetForm } =
+    useFormik({
+      initialValues: initialValues,
+      onSubmit: (values) => {
+        console.log("🚀 ~ CommentInfo ~ values:", values);
+        dispatch({ type: ADD_COMMENT_SAGA, payload: {
+          imgId,
+          comment: values.addComment,
+        } });
+        resetForm();
+      },
+    });
 
   const renderCommentList = () =>
     commentInfo.map((item) => (
-      <div className="mr-3">
+      <div className="mr-3 mt-3">
         <div className="flex gap-4">
           <div>
             <img
@@ -43,37 +67,37 @@ export default function CommentInfo() {
     <div className="commentInfo">
       <div>
         <div className="mt-6 pb-5 border-b-2 border-gray-100 mb-5">
-          <div className="flex items-center">
+          <div className="flex items-center ">
             <span className="mr-3 text-black text-2xl">Preview</span>
             <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none" />
             <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none" />
             <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none" />
           </div>
-          <div className="ml-6">
+          <div className="ml-6 h-80 overflow-y-scroll">
             {renderCommentList()}
             <br />
-            <div>
-              <span className="h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                <Formik>
-                  <Form>
-                    <Field
-                      type="text"
-                      className="text-black rounded-3xl outline-none comment z-50 relative left-40"
-                    />
-                  </Form>
-                </Formik>
-              </span>
-            </div>
           </div>
+          <div>
+              <Formik initialValues={initialValues}>
+                <Form onSubmit={handleSubmit}>
+                  <Field
+                    type="text"
+                    name="addComment"
+                    value={values.addComment}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Add comment..."
+                    className="text-black rounded-3xl outline-none comment"
+                  />
+                </Form>
+              </Formik>
+            </div>
         </div>
-        <div className="flex">
+        <div className="flex justify-between">
           <span className="title-font font-medium text-2xl text-gray-900">
             $58.00
           </span>
-          <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-            Button
-          </button>
-          <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+          <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4 me-5">
             <svg
               fill="currentColor"
               strokeLinecap="round"

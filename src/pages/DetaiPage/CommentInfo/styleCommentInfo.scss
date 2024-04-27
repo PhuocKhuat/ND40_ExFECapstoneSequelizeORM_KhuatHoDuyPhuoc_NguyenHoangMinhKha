@@ -8,9 +8,17 @@
   .comment {
     font-size: 0.9rem;
     background-color: rgb(239, 235, 235);
-    width: 28vw;
+    width: 24vw;
     padding-inline: 0.5em;
     padding-block: 0.7em;
     border: none;
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .comment{
+    width: 96% !important;
+    margin-left: 15px;
   }
 }

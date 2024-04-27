@@ -1,6 +1,8 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { capstoneService } from "../../services/CapstoneService";
 import {
+  ADD_COMMENT,
+  ADD_COMMENT_SAGA,
   GET_COMMENT_INFO,
   GET_COMMENT_INFO_SAGA,
   GET_IMG_INFO,
@@ -10,6 +12,8 @@ import {
   POST_LOGIN,
   POST_LOGIN_SAGA,
   POST_SIGNUP_SAGA,
+  SAVE_IMAGE,
+  SAVE_IMAGE_SAGA,
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
 } from "../../action/action";
@@ -102,7 +106,7 @@ function* getSearchAction(action) {
 
 function* getImgInfoAction(action) {
   const { payload } = action;
-  
+
   try {
     const { data } = yield call(capstoneService.getImgInfo, payload);
 
@@ -112,7 +116,6 @@ function* getImgInfoAction(action) {
         payload: data.data,
       });
     }
-    
   } catch (error) {
     console.log("🚀 ~ function*getImgInfoAction ~ error:", error);
   }
@@ -121,18 +124,50 @@ function* getImgInfoAction(action) {
 function* getCommentInfoAction(action) {
   const { payload } = action;
   // console.log("🚀 ~ function*getCommentInfoAction ~ payload:", payload)
-  
+
   try {
     const { data } = yield call(capstoneService.getCommentInfo, payload);
 
-    if(data.status === 200){
+    if (data.status === 200) {
       yield put({
         type: GET_COMMENT_INFO,
         payload: data.data,
-      })
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*getImgInfoAction ~ error:", error);
+  }
+}
+
+function* getAddCommentAction(action) {
+  const { payload } = action;
+
+  try {
+    const { data } = yield call(capstoneService.postAddComment, payload);
+    
+    if(data.status === 200){
+      yield put({
+        type: ADD_COMMENT,
+        payload: data.data
+      })
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*getAddCommentAction ~ error:", error);
+  }
+}
+
+function* getSaveImageAction(action){
+  const { payload } = action;
+  
+  try {
+    const { data } = yield call(capstoneService.getSaveImage, payload);
+    
+    if(data.status === 200){
+      message.success(data.message)
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*getSaveImageAction ~ error:", error)
+    
   }
 }
 
@@ -158,4 +193,12 @@ export function* previewImgInfoAction() {
 
 export function* previewCommentInfoAction() {
   yield takeLatest(GET_COMMENT_INFO_SAGA, getCommentInfoAction);
+}
+
+export function* previewAddCommentAction() {
+  yield takeLatest(ADD_COMMENT_SAGA, getAddCommentAction);
+}
+
+export function* previewSaveImageAction() {
+  yield takeLatest(SAVE_IMAGE_SAGA, getSaveImageAction);
 }
