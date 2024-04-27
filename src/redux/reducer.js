@@ -10,7 +10,7 @@ export let reducer = (state = initialState, { type, payload }) => {
       return { ...state, imgList: payload };
 
     case SEARCH_IMAGE:
-      console.log("🚀 ~ reducer ~ payload:", payload)
+      console.log("🚀 ~ reducer ~ payload:", payload);
       return { ...state, imgList: payload };
 
     default:

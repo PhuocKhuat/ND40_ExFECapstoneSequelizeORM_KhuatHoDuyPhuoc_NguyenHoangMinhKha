@@ -5,16 +5,25 @@ export class CapstoneService {
     return http.get("/image/get-image-list");
   };
 
-  postLogin = (data) => {
-    return http.post("/user/login", data);
+  postLogin = (payload) => {
+    return http.post("/user/login", payload);
   };
 
-  postSignup = (data)=>{
-    return http.post("/user/signup", data);
-  }
+  postSignup = (payload) => {
+    return http.post("/user/signup", payload);
+  };
 
-  getSearchImage = (data)=>{
-    return http.get(`/image/search-img-list-by-name?imgName=${data}`);
+  getSearchImage = (payload) => {
+    return http.get(`/image/search-img-list-by-name?imgName=${payload}`);
+  };
+
+  getImgInfo = (payload) => {
+    return http
+      .get(`/image/get-img-info-and-creator/${payload}`);
+  };
+
+  getCommentInfo = (payload)=>{
+    return http.get(`/user/get-comment-info/${payload}`)
   }
 }
 

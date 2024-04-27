@@ -4,7 +4,7 @@ import "./styleImageList.scss";
 import AddImage from "./AddImage/AddImage";
 import { BellOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { SEARCH_IMAGE_SAGE } from "../../../action/action";
+import { SEARCH_IMAGE_SAGA } from "../../../action/action";
 
 export default function SearchImage() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export default function SearchImage() {
     onSubmit: (values) => {
       console.log("🚀 ~ SearchImage ~ values:", values.searchImage);
       resetForm();
-      dispatch({ type: SEARCH_IMAGE_SAGE, payload: values.searchImage });
+      dispatch({ type: SEARCH_IMAGE_SAGA, payload: values.searchImage });
     },
   });
 
@@ -32,7 +32,7 @@ export default function SearchImage() {
             value={values.searchImage}
             onChange={handleChange}
             className="searchImage rounded-3xl outline-none"
-            placeholder="Search Image"
+            placeholder="Search image name ..."
           />
         </Form>
       </Formik>
