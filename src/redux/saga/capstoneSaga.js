@@ -12,10 +12,10 @@ import {
   POST_LOGIN,
   POST_LOGIN_SAGA,
   POST_SIGNUP_SAGA,
-  SAVE_IMAGE,
   SAVE_IMAGE_SAGA,
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
+  SWITCH_TAB,
 } from "../../action/action";
 import { message } from "antd";
 
@@ -70,7 +70,7 @@ function* postSignupAction(action) {
       message.success(data.message);
 
       yield put({
-        type: "SWITCH_TAB",
+        type: SWITCH_TAB,
       });
     }
   } catch (error) {
@@ -163,7 +163,7 @@ function* getSaveImageAction(action){
     const { data } = yield call(capstoneService.getSaveImage, payload);
     
     if(data.status === 200){
-      message.success(data.message)
+      message.success(data.message);
     }
   } catch (error) {
     console.log("🚀 ~ function*getSaveImageAction ~ error:", error)
