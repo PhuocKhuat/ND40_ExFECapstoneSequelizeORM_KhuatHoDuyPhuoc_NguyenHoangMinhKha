@@ -3,6 +3,8 @@ import { capstoneService } from "../../services/CapstoneService";
 import {
   ADD_COMMENT,
   ADD_COMMENT_SAGA,
+  ADD_IMAGES,
+  ADD_IMAGES_SAGA,
   GET_COMMENT_INFO,
   GET_COMMENT_INFO_SAGA,
   GET_IMG_INFO,
@@ -144,30 +146,49 @@ function* getAddCommentAction(action) {
 
   try {
     const { data } = yield call(capstoneService.postAddComment, payload);
-    
-    if(data.status === 200){
+
+    if (data.status === 200) {
       yield put({
         type: ADD_COMMENT,
-        payload: data.data
-      })
+        payload: data.data,
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*getAddCommentAction ~ error:", error);
   }
 }
 
-function* getSaveImageAction(action){
+function* getSaveImageAction(action) {
   const { payload } = action;
-  
+
   try {
     const { data } = yield call(capstoneService.getSaveImage, payload);
-    
-    if(data.status === 200){
+
+    if (data.status === 200) {
       message.success(data.message);
     }
   } catch (error) {
-    console.log("🚀 ~ function*getSaveImageAction ~ error:", error)
-    
+    console.log("🚀 ~ function*getSaveImageAction ~ error:", error);
+  }
+}
+
+function* postAddImagesAction(action) {
+  const { payload } = action;
+
+  try {
+    const { data } = yield call(capstoneService.postAddImages, payload);
+
+    if(data.status === 200){
+      yield put({
+        type: ADD_IMAGES,
+        payload: data.data,
+      })
+      message.success(data.message);
+    }
+
+  } catch (error) {
+    console.log("🚀 ~ function*postAddImagesAction ~ error:", error)
+    message.error("Add image failed");
   }
 }
 
@@ -201,4 +222,8 @@ export function* previewAddCommentAction() {
 
 export function* previewSaveImageAction() {
   yield takeLatest(SAVE_IMAGE_SAGA, getSaveImageAction);
+}
+
+export function* previewAddImagesAction() {
+  yield takeLatest(ADD_IMAGES_SAGA, postAddImagesAction);
 }

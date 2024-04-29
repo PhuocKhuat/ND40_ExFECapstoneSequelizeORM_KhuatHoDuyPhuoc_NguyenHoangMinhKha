@@ -16,7 +16,7 @@ export default function ImageList() {
 
   const imageList = () =>
     imgList !== "" ? (
-      imgList.reverse().slice(0, 12).map((item) => (
+      imgList.map((item) => (
         <NavLink to={`/img-info/${item.imgId}`} className="xl:w-1/4 md:w-1/2 p-4">
           <div className="bg-gray-100 p-6 rounded-lg">
             <img

@@ -18,6 +18,8 @@ export class CapstoneService {
   postAddComment = (payload) => http.post("/user/save-comment-info", payload);
 
   getSaveImage = (payload) => http.get(`/image/get-save-image/${payload}`);
+
+  postAddImages = (payload) => http.post("/image/add-image", payload);
 }
 
 export const capstoneService = new CapstoneService();
