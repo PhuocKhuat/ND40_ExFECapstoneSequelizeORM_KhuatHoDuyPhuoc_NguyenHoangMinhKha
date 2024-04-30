@@ -2,6 +2,7 @@ import { Field, Form, Formik, useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_IMAGES_SAGA, UPLOAD_IMAGES } from "../../action/action";
+import Item from "antd/es/list/Item";
 
 export default function AddImage() {
   const { imgList } = useSelector((state) => state.reducerAdmin);
@@ -23,12 +24,13 @@ export default function AddImage() {
     imgList.map((item) => (
       <div className="mx-2">
         <img className="w-32" src={item.url} alt="no data" />
-        <span className="text-small text-gray-500 ms-3">{item.file.type}</span>
+        <p className="text-small text-gray-500 ms-3 w-1/2">{item.file.name}</p>
       </div>
     ));
 
   const handleChangeImage = (e) => {
     const files = e.target.files;
+    console.log("🚀 ~ handleChangeImage ~ files:", files);
 
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
@@ -42,7 +44,7 @@ export default function AddImage() {
         });
         values.image.push(file);
         // console.log("🚀 ~ handleChangeImage ~ array:", array);
-      };
+      }
     }
   };
 
@@ -99,15 +101,16 @@ export default function AddImage() {
                 let files = values.image;
                 // console.log("🚀 ~ AddImage ~ files:", files);
 
-                for (let i = 0; i < files.length; i++) {
+                files.forEach(item => {
                   let formData = new FormData();
-                  formData.append("image", files[i]);
+                  formData.append("image", item);
 
                   dispatch({
                     type: ADD_IMAGES_SAGA,
                     payload: formData,
                   }); 
-                }
+
+                })
               }}
             >
               Add image now
