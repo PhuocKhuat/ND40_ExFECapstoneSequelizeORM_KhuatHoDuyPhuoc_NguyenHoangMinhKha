@@ -5,6 +5,7 @@ import {
   ADD_COMMENT_SAGA,
   ADD_IMAGES,
   ADD_IMAGES_SAGA,
+  ADD_IMAGES_SUCCESS,
   GET_COMMENT_INFO,
   GET_COMMENT_INFO_SAGA,
   GET_IMG_INFO,
@@ -182,6 +183,10 @@ function* postAddImagesAction(action) {
       yield put({
         type: ADD_IMAGES,
         payload: data.data,
+      })
+      yield put({
+        type: ADD_IMAGES_SUCCESS,
+        payload: []
       })
       message.success(data.message);
     }

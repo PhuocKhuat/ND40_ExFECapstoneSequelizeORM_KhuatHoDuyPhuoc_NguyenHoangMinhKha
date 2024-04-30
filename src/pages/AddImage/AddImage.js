@@ -9,10 +9,10 @@ export default function AddImage() {
   const dispatch = useDispatch();
 
   const initialValues = {
-    image: {},
+    image: [],
   };
 
-  const { values, handleBlur, handleSubmit, setFieldValue } = useFormik({
+  const { values, handleBlur, handleSubmit } = useFormik({
     initialValues,
     onSubmit: (values) => {
       console.log("🚀 ~ AddImage ~ values:", values.image);
@@ -33,14 +33,15 @@ export default function AddImage() {
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
       const file = files[i];
-      
+
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         dispatch({
           type: UPLOAD_IMAGES,
           payload: { file, url: e.target.result },
         });
-        setFieldValue("image", file);
+        values.image.push(file);
+        // console.log("🚀 ~ handleChangeImage ~ array:", array);
       };
     }
   };
@@ -92,22 +93,23 @@ export default function AddImage() {
           </div>
           <div className="flex justify-start mt-5">{renderImageList()}</div>
           <div className="flex justify-end mt-5 gap-3">
-            <button className="bg-blue-500 rounded-lg p-3 text-white" onClick={()=>{
-              let formData = new FormData();
+            <button
+              className="bg-blue-500 rounded-lg p-3 text-white"
+              onClick={() => {
+                let files = values.image;
+                // console.log("🚀 ~ AddImage ~ files:", files);
 
-              formData.append("image", values.image);
+                for (let i = 0; i < files.length; i++) {
+                  let formData = new FormData();
+                  formData.append("image", files[i]);
 
-              let formDataArray = [];
-
-              formDataArray.push(formData);
-              
-              formDataArray.forEach(formData => {
-                dispatch({
-                  type: ADD_IMAGES_SAGA,
-                  payload: formData,
-                });
-              })
-            }}>
+                  dispatch({
+                    type: ADD_IMAGES_SAGA,
+                    payload: formData,
+                  }); 
+                }
+              }}
+            >
               Add image now
             </button>
             <button className="bg-red-500 rounded-lg p-3 text-white">
