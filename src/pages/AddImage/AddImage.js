@@ -1,11 +1,17 @@
 import { Field, Form, Formik, useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_IMAGES_SAGA, UPLOAD_IMAGES } from "../../action/action";
-import Item from "antd/es/list/Item";
+import {
+  ADD_IMAGES_SAGA,
+  DELETE_IMAGE,
+  IS_HOVERING,
+  UPLOAD_IMAGES,
+} from "../../action/action";
+import { DeleteOutlined } from "@ant-design/icons";
 
 export default function AddImage() {
-  const { imgList } = useSelector((state) => state.reducerAdmin);
+  const { imgList, isHovering } = useSelector((state) => state.reducerAdmin);
+  // console.log("🚀 ~ AddImage ~ isHovering:", isHovering);
   console.log("🚀 ~ AddImage ~ imgList:", imgList);
   const dispatch = useDispatch();
 
@@ -21,10 +27,39 @@ export default function AddImage() {
   });
 
   const renderImageList = () =>
-    imgList.map((item) => (
-      <div className="mx-2">
+    imgList.map((item, index) => (
+      <div
+        className="mx-2 relative truncate"
+        key={index}
+        onMouseEnter={() => {
+          dispatch({
+            type: IS_HOVERING,
+            payload: true,
+          });
+        }}
+        onMouseLeave={() => {
+          dispatch({
+            type: IS_HOVERING,
+            payload: false,
+          });
+        }}
+      >
         <img className="w-32" src={item.url} alt="no data" />
-        <p className="text-small text-gray-500 ms-3 w-1/2">{item.file.name}</p>
+        <div className={`absolute top-0 left-0 ${isHovering ? "" : "hidden"}`}>
+          <p className="text-sm text-gray-500 ms-3">{item.file.name}</p>
+          <p className="text-sm text-gray-500 ms-3">{item.file.size}</p>
+          <button className="text-red-500 ms-24 text-lg" onClick={
+            ()=>{
+             dispatch({
+              type: DELETE_IMAGE,
+              payload: index,
+             })
+              console.log("🚀 ~ AddImage ~ item.lastModified:", item.lastModified)
+            }
+          }>
+            <DeleteOutlined />
+          </button>
+        </div>
       </div>
     ));
 
@@ -44,8 +79,23 @@ export default function AddImage() {
         });
         values.image.push(file);
         // console.log("🚀 ~ handleChangeImage ~ array:", array);
-      }
+      };
     }
+  };
+
+  const handleAddImages = () => {
+    let files = values.image;
+    // console.log("🚀 ~ AddImage ~ files:", files);
+
+    files.forEach((item) => {
+      let formData = new FormData();
+      formData.append("image", item);
+
+      dispatch({
+        type: ADD_IMAGES_SAGA,
+        payload: formData,
+      });
+    });
   };
 
   return (
@@ -97,21 +147,7 @@ export default function AddImage() {
           <div className="flex justify-end mt-5 gap-3">
             <button
               className="bg-blue-500 rounded-lg p-3 text-white"
-              onClick={() => {
-                let files = values.image;
-                // console.log("🚀 ~ AddImage ~ files:", files);
-
-                files.forEach(item => {
-                  let formData = new FormData();
-                  formData.append("image", item);
-
-                  dispatch({
-                    type: ADD_IMAGES_SAGA,
-                    payload: formData,
-                  }); 
-
-                })
-              }}
+              onClick={handleAddImages}
             >
               Add image now
             </button>
