@@ -54,7 +54,6 @@ export default function AddImage() {
               type: DELETE_IMAGE,
               payload: index,
              })
-              console.log("🚀 ~ AddImage ~ item.lastModified:", item.lastModified)
             }
           }>
             <DeleteOutlined />

@@ -5,6 +5,7 @@ import Header from "./components/Header/Header.js";
 import DetaiPage from "./pages/DetaiPage/DetaiPage.js";
 import AdminLayout from "./components/Layouts/AdminLayout/AdminLayout.js";
 import AddImage from "./pages/AddImage/AddImage.js";
+import UserInfo from "./pages/userInfo/UserInfo.js";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="add-image" element={<AddImage />} />
           </Route>
+          <Route path="/user-info" element={<UserInfo/>}/>
         </Routes>
       </BrowserRouter>
     </>
