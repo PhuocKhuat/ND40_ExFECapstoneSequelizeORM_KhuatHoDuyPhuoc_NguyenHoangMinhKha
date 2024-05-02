@@ -19,6 +19,7 @@ import {
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
   SWITCH_TAB,
+  USER_INFO_SAGA,
 } from "../../action/action";
 import { message } from "antd";
 
@@ -54,11 +55,11 @@ function* postLoginAction(action) {
       message.success(data.message);
 
       localStorage.setItem("LOGIN_USER", JSON.stringify(data));
-
-      window.location.reload();
     }
   } catch (error) {
     console.log("🚀 ~ function*postLoginAction ~ error:", error);
+
+    message.error(error.response.data.message);
   }
 }
 
@@ -68,6 +69,7 @@ function* postSignupAction(action) {
 
   try {
     const { data } = yield call(capstoneService.postSignup, payload);
+    console.log("🚀 ~ function*postSignupAction ~ data:", data);
 
     if (data.status === 200) {
       message.success(data.message);
@@ -179,21 +181,36 @@ function* postAddImagesAction(action) {
   try {
     const { data } = yield call(capstoneService.postAddImages, payload);
 
-    if(data.status === 200){
+    if (data.status === 200) {
       yield put({
         type: ADD_IMAGES,
         payload: data.data,
-      })
+      });
       yield put({
         type: ADD_IMAGES_SUCCESS,
-        payload: []
-      })
+        payload: [],
+      });
       message.success(data.message);
     }
-
   } catch (error) {
-    console.log("🚀 ~ function*postAddImagesAction ~ error:", error)
+    console.log("🚀 ~ function*postAddImagesAction ~ error:", error);
     message.error("Add image failed");
+  }
+}
+
+function* putUpdateUserInfoAction(action) {
+  const { payload } = action;
+
+  try {
+    const { data } = yield call(capstoneService.putUpdateUserInfo, payload);
+
+    if(data.status === 200){
+      message.success(data.message);
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*putUpdateUserInfoAction ~ error:", error);
+
+    message.error(error.response.data.message)
   }
 }
 
@@ -231,4 +248,8 @@ export function* previewSaveImageAction() {
 
 export function* previewAddImagesAction() {
   yield takeLatest(ADD_IMAGES_SAGA, postAddImagesAction);
+}
+
+export function* previewUpdateUserInfoAction() {
+  yield takeLatest(USER_INFO_SAGA, putUpdateUserInfoAction);
 }

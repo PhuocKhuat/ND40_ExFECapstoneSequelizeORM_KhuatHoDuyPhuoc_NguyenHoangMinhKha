@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 export default function Header() {
   const { users } = useSelector((state) => state.reducerLogin);
   console.log("🚀 ~ Header ~ users:", users);
+
   const renderUsers = () => {
     if (users) {
       return (
@@ -27,7 +28,7 @@ export default function Header() {
               <button
                 onClick={() => {
                   localStorage.removeItem("LOGIN_USER");
-                  window.location.reload();
+                  window.location.href = "/";
                 }}
                 className="text-xl"
               >

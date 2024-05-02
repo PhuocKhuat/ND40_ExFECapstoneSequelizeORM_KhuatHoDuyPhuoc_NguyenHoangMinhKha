@@ -20,6 +20,8 @@ export class CapstoneService {
   getSaveImage = (payload) => http.get(`/image/get-save-image/${payload}`);
 
   postAddImages = (payload) => http.post("/image/add-image", payload);
+
+  putUpdateUserInfo = (payload) => http.put("/user/update-user-info", payload);
 }
 
 export const capstoneService = new CapstoneService();
