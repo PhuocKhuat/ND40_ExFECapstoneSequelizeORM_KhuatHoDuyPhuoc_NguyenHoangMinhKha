@@ -17,8 +17,11 @@ export default function ImageList() {
   const imageList = () =>
     imgList !== "" ? (
       imgList.map((item) => (
-        <NavLink to={`/img-info/${item.imgId}`} className="xl:w-1/4 md:w-1/2 p-4">
-          <div className="bg-gray-100 p-6 rounded-lg">
+        <NavLink
+          to={`/img-info/${item.imgId}`}
+          className="xl:w-1/4 md:w-1/2 p-4"
+        >
+          <div className="bg-gray-100 p-6 rounded-lg w-1/4 md:w-full">
             <img
               className="rounded w-full h-44 object-cover object-center mb-6"
               src={`${BASE_IMG_URL}/${item.imgUrl}`}
@@ -30,7 +33,9 @@ export default function ImageList() {
             <h2 className="text-lg text-gray-900 font-medium title-font mb-4 truncate">
               {item.imgName}
             </h2>
-            <p className="leading-relaxed text-base truncate">{item.description}</p>
+            <p className="leading-relaxed text-base truncate">
+              {item.description}
+            </p>
           </div>
         </NavLink>
       ))
