@@ -47,7 +47,7 @@ export default function ImgInfo() {
                 </button>
               </div>
             </div>
-            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 truncate">
               {imgInfo.imgName}
             </h1>
             <div className="flex mb-4">

@@ -6,6 +6,8 @@ import DetaiPage from "./pages/DetaiPage/DetaiPage.js";
 import AdminLayout from "./components/Layouts/AdminLayout/AdminLayout.js";
 import AddImage from "./pages/AddImage/AddImage.js";
 import UserInfo from "./pages/userInfo/UserInfo.js";
+import SecureGate from "./Layouts/SecureGate/SecureGate.js";
+import Footer from "./components/Footer/Footer.js";
 
 function App() {
   return (
@@ -16,10 +18,18 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/img-info/:imgId" element={<DetaiPage />} />
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="add-image" element={<AddImage />} />
+            <Route
+              path="add-image"
+              element={
+                <SecureGate>
+                  <AddImage />
+                </SecureGate>
+              }
+            />
           </Route>
-          <Route path="/user-info" element={<UserInfo/>}/>
+          <Route path="/user-info" element={<UserInfo />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   );

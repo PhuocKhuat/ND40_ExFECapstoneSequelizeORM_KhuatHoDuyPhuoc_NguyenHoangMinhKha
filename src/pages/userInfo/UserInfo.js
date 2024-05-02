@@ -51,7 +51,7 @@ export default function UserInfo() {
   };
 
   return (
-    <div className="userInfo mt-14">
+    <div className="userInfo mt-14 mb-10">
       <div className="container">
         <Formik initialValues={initialValues} onReset={handleReset}>
           <Form className="max-w-md mx-auto" onSubmit={handleSubmit}>

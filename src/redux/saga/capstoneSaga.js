@@ -55,6 +55,8 @@ function* postLoginAction(action) {
       message.success(data.message);
 
       localStorage.setItem("LOGIN_USER", JSON.stringify(data));
+
+      window.location.href = "/";
     }
   } catch (error) {
     console.log("🚀 ~ function*postLoginAction ~ error:", error);
