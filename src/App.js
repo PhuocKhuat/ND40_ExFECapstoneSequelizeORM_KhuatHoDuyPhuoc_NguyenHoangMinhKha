@@ -17,19 +17,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/img-info/:imgId" element={<DetaiPage />} />
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route
-              path="add-image"
-              element={
-                <SecureGate>
-                  <AddImage />
-                </SecureGate>
-              }
-            />
+          <Route path="/admin" element={<SecureGate>
+            <AdminLayout/>
+          </SecureGate>}>
+            <Route path="add-image" element={<AddImage />} />
           </Route>
           <Route path="/user-info" element={<UserInfo />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </>
   );
