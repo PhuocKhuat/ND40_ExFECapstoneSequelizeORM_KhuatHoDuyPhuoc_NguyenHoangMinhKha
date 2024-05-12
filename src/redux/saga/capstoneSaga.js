@@ -12,6 +12,8 @@ import {
   GET_IMG_INFO_SAGA,
   GET_IMG_LIST,
   GET_IMG_LIST_SAGA,
+  GET_SAVED_IMAGE,
+  GET_SAVED_IMAGE_SAGA,
   POST_LOGIN,
   POST_LOGIN_SAGA,
   POST_SIGNUP_SAGA,
@@ -206,13 +208,29 @@ function* putUpdateUserInfoAction(action) {
   try {
     const { data } = yield call(capstoneService.putUpdateUserInfo, payload);
 
-    if(data.status === 200){
+    if (data.status === 200) {
       message.success(data.message);
     }
   } catch (error) {
     console.log("🚀 ~ function*putUpdateUserInfoAction ~ error:", error);
 
-    message.error(error.response.data.message)
+    message.error(error.response.data.message);
+  }
+}
+
+function* getSavedImageAction() {
+  try {
+    const { data } = yield call(capstoneService.getListOfSavedImage);
+
+    if(data.status === 200){
+      yield put({
+        type: GET_SAVED_IMAGE,
+        payload: data.data,
+      })
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*getSavedImageAction ~ error:", error);
+    
   }
 }
 
@@ -254,4 +272,8 @@ export function* previewAddImagesAction() {
 
 export function* previewUpdateUserInfoAction() {
   yield takeLatest(USER_INFO_SAGA, putUpdateUserInfoAction);
+}
+
+export function* previewListOfSavedImageAction() {
+  yield takeLatest(GET_SAVED_IMAGE_SAGA, getSavedImageAction);
 }

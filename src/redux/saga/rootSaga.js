@@ -1,5 +1,17 @@
 import { all } from "redux-saga/effects";
-import { previewActionImgList, previewAddCommentAction, previewAddImagesAction, previewCommentInfoAction, previewImgInfoAction, previewLoginAction, previewSaveImageAction, previewSearchAction, previewSignupAction, previewUpdateUserInfoAction } from "./capstoneSaga";
+import {
+  previewActionImgList,
+  previewAddCommentAction,
+  previewAddImagesAction,
+  previewCommentInfoAction,
+  previewImgInfoAction,
+  previewListOfSavedImageAction,
+  previewLoginAction,
+  previewSaveImageAction,
+  previewSearchAction,
+  previewSignupAction,
+  previewUpdateUserInfoAction,
+} from "./capstoneSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -13,5 +25,6 @@ export default function* rootSaga() {
     previewSaveImageAction(),
     previewAddImagesAction(),
     previewUpdateUserInfoAction(),
+    previewListOfSavedImageAction(),
   ]);
 }

@@ -12,7 +12,7 @@ const TabPane = () => {
 
   return (
     <Tabs defaultActiveKey="2" activeKey={switchTab} onChange={(key) => {
-      console.log("🚀 ~ TabPane ~ key:", key);
+      // console.log("🚀 ~ TabPane ~ key:", key);
       
       dispatch({type: SELECT_TAB, payload: key})
     }}>

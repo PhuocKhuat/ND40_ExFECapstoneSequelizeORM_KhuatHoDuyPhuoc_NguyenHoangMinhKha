@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../../common/styleCommon.css";
 import { Field, Form, Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { USER_INFO_SAGA } from "../../action/action";
+import { USER_INFO_SAGA } from "../../../action/action";
 
 export default function UserInfo() {
   const { users } = useSelector((state) => state.reducerLogin);
