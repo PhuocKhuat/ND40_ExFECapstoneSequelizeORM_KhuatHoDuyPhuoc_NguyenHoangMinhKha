@@ -10,6 +10,7 @@ import {
 import "./styleImgInfo.scss";
 import CommentInfo from "../CommentInfo/CommentInfo";
 import { useParams } from "react-router-dom";
+import { SaveOutlined } from "@ant-design/icons";
 
 export default function ImgInfo() {
   const { imgInfo } = useSelector((state) => state.reducerDetail);
@@ -40,10 +41,13 @@ export default function ImgInfo() {
                 </h2>
               </div>
               <div>
-                <button className="rounded-2xl bg-red-500 text-white p-2 me-5" onClick={()=>{
-                  dispatch({type: SAVE_IMAGE_SAGA, payload: imgId})
-                }}>
-                  Save image
+                <button
+                  className="rounded-2xl text-red-500 p-2 me-5 text-2xl"
+                  onClick={() => {
+                    dispatch({ type: SAVE_IMAGE_SAGA, payload: imgId });
+                  }}
+                >
+                  <SaveOutlined />
                 </button>
               </div>
             </div>

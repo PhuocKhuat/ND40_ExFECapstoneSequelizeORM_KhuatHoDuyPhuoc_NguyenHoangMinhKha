@@ -1,11 +1,17 @@
 import React from "react";
 import { Flex } from "antd";
 import { NavLink } from "react-router-dom";
+import { FileAddOutlined } from "@ant-design/icons";
 
 export default function AddImage() {
   return (
     <Flex gap="small" wrap="wrap">
-      <NavLink to="/admin/add-image" className="bg-blue-500 rounded-md flex items-center text-white px-3">+ Add Image</NavLink>
+      <NavLink
+        to="/admin/add-image"
+        className="text-blue-500 rounded-md flex items-center px-3"
+      >
+        <FileAddOutlined />
+      </NavLink>
     </Flex>
   );
 }

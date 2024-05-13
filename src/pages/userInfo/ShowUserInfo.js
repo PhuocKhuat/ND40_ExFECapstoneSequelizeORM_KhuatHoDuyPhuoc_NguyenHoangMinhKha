@@ -6,10 +6,8 @@ import "../../common/styleCommon.css";
 export default function ShowUserInfo() {
   return (
     <div>
-      <div className="container">
-        <Information />
-        <ImageManagement />
-      </div>
+      <Information />
+      <ImageManagement />
     </div>
   );
 }
