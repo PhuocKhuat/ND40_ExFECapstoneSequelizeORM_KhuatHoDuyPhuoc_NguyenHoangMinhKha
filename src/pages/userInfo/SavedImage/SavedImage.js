@@ -27,7 +27,7 @@ export default function SavedImage() {
 
   const renderListOfSavedImage = () =>
     listOfSavedImage.map((item, index) => (
-      <div className="p-4 lg:w-1/4 md:w-1/2 relative" key={index}>
+      <div className="p-4 lg:w-1/5 md:w-1/2 relative" key={index}>
         <div
           className="h-full flex flex-col items-center text-center relative"
           onMouseEnter={() => {
@@ -69,7 +69,7 @@ export default function SavedImage() {
 
   return (
     <section className="text-gray-200 body-font savedImage">
-      <div className="container px-5 py-24 mx-auto">
+      <div className="px-5 pt-10 pb-20 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="text-3xl font-medium title-font mb-4 text-white">
             SAVED IMAGE

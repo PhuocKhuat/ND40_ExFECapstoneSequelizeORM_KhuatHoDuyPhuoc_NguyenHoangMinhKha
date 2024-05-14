@@ -1,7 +1,9 @@
 import {
   DELETE_SAVED_IMAGE,
   GET_CREATED_IMAGE,
+  GET_CREATED_IMAGE_SAGA,
   GET_SAVED_IMAGE,
+  IS_HOVERING_CREATED_IMAGE,
   IS_HOVERING_SAVED_IMAGE,
 } from "../action/action";
 
@@ -28,6 +30,9 @@ export let reducerUserInfo = (state = initialState, { type, payload }) => {
 
     case GET_CREATED_IMAGE:
       return { ...state, listOfCreatedImage: payload };
+
+    case IS_HOVERING_CREATED_IMAGE:
+      return { ...state, isHovering: payload };
 
     default:
       return state;
