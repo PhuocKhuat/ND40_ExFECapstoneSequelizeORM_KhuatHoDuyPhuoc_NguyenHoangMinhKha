@@ -24,6 +24,10 @@ export class CapstoneService {
   putUpdateUserInfo = (payload) => http.put("/user/update-user-info", payload);
 
   getListOfSavedImage = () => http.get("/image/get-list-saved-image");
+  
+  deleteSavedImage = (payload) => http.delete(`/image/delete_saved-image?imgId=${payload}`);
+  
+  getListOfCreatedImage = () => http.get("/image/get-list-created-image");
 }
 
 export const capstoneService = new CapstoneService();

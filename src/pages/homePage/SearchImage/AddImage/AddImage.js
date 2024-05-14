@@ -10,7 +10,7 @@ export default function AddImage() {
         to="/admin/add-image"
         className="text-blue-500 rounded-md flex items-center px-3"
       >
-        <FileAddOutlined />
+        <FileAddOutlined className="text-2xl"/>
       </NavLink>
     </Flex>
   );

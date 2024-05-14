@@ -6,8 +6,12 @@ import {
   ADD_IMAGES,
   ADD_IMAGES_SAGA,
   ADD_IMAGES_SUCCESS,
+  DELETE_SAVED_IMAGE,
+  DELETE_SAVED_IMAGE_SAGA,
   GET_COMMENT_INFO,
   GET_COMMENT_INFO_SAGA,
+  GET_CREATED_IMAGE,
+  GET_CREATED_IMAGE_SAGA,
   GET_IMG_INFO,
   GET_IMG_INFO_SAGA,
   GET_IMG_LIST,
@@ -222,15 +226,48 @@ function* getSavedImageAction() {
   try {
     const { data } = yield call(capstoneService.getListOfSavedImage);
 
-    if(data.status === 200){
+    if (data.status === 200) {
       yield put({
         type: GET_SAVED_IMAGE,
         payload: data.data,
-      })
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*getSavedImageAction ~ error:", error);
-    
+  }
+}
+
+function* deleteSavedImageAction(action) {
+  const { payload } = action;
+
+  try {
+    const { data } = yield call(capstoneService.deleteSavedImage, payload);
+
+    if (data.status === 200) {
+      yield put({
+        type: DELETE_SAVED_IMAGE,
+        payload,
+      });
+
+      message.success(data.message);
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*deleteSavedImageAction ~ error:", error);
+  }
+}
+
+function* getCreatedImageAction() {
+  try {
+    const { data } = yield call(capstoneService.getListOfCreatedImage);
+
+    if (data.status === 200) {
+      yield put({
+        type: GET_CREATED_IMAGE,
+        payload: data.data,
+      });
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*getCreatedImageAction ~ error:", error);
   }
 }
 
@@ -276,4 +313,12 @@ export function* previewUpdateUserInfoAction() {
 
 export function* previewListOfSavedImageAction() {
   yield takeLatest(GET_SAVED_IMAGE_SAGA, getSavedImageAction);
+}
+
+export function* previewDeleteSavedImageAction() {
+  yield takeLatest(DELETE_SAVED_IMAGE_SAGA, deleteSavedImageAction);
+}
+
+export function* previewListOfCreatedImageAction() {
+  yield takeLatest(GET_CREATED_IMAGE_SAGA, getCreatedImageAction);
 }

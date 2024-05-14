@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BASE_IMG_URL,
+  DELETE_SAVED_IMAGE_SAGA,
   GET_SAVED_IMAGE_SAGA,
   IS_HOVERING_SAVED_IMAGE,
 } from "../../../action/action";
@@ -46,7 +47,12 @@ export default function SavedImage() {
               isHovering === index ? "" : "hidden"
             }`}
           >
-            <button className="absolute right-2 bottom-56 text-red-600">
+            <button className="absolute right-2 bottom-56 text-red-600" onClick={()=>{
+               dispatch({
+                type: DELETE_SAVED_IMAGE_SAGA,
+                payload: item.img.imgId,
+               })
+            }}>
               <DeleteOutlined />
             </button>
             <h2 className="title-font font-medium text-lg text-gray-900">
