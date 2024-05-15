@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../../common/styleCommon.css";
 import { Field, Form, Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_INFO_SAGA } from "../../../action/action";
@@ -51,7 +50,7 @@ export default function UserInfo() {
   };
 
   return (
-    <div className="userInfo mt-14 mb-10">
+    <div className="userInfo mt-5 mb-5">
       <div className="container">
         <Formik initialValues={initialValues} onReset={handleReset}>
           <Form className="max-w-md mx-auto" onSubmit={handleSubmit}>
@@ -134,7 +133,7 @@ export default function UserInfo() {
                   Age
                 </label>
               </div>
-              <div className="flex space-x-3 mt-6">
+              <div className="flex space-x-3 mt-10">
                 <div>
                   <button
                     type="reset"

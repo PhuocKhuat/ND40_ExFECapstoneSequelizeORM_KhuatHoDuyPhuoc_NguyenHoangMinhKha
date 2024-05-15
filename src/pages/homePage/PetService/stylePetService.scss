@@ -1,0 +1,13 @@
+.petService {
+  background-image: url("../../../images/bg4.png");
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .hoverItem1:hover,
+  .hoverItem2:hover,
+  .hoverItem3:hover {
+    transform: translateY(-20px);
+    transition: all 0.3s;
+    border: 3px dashed purple;
+  }
+}

@@ -50,13 +50,13 @@ export default function ImageList() {
     <section className="text-gray-600 body-font imageList">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap w-full mb-20 flex-col space-y-5">
-          <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 uppercase">
-              Choose an image that matches your wishesF
+          <div className="w-full mb-6 lg:mb-0">
+            <h1 className="sm:text-3xl font-medium title-font mb-2 text-gray-900" style={{fontSize: "70px"}}>
+              What is your choice?
             </h1>
             <div className="h-1 w-20 bg-indigo-500 rounded" />
           </div>
-          <p className="lg:w-1/2 w-full leading-relaxed text-gray-700">
+          <p className="lg:w-1/2 w-full leading-relaxed text-white">
             Introducing "Short & Sweet: A Collection of Cat Images" Embark on a
             delightful journey into the world of feline charm with our curated
             collection, "Short & Sweet." Dive into a plethora of captivating
@@ -68,7 +68,12 @@ export default function ImageList() {
             where every purr and meow tells a story.
           </p>
         </div>
-        <div className="flex flex-wrap -m-4 overflow-y-scroll" style={{height: "500px"}}>{imageList()}</div>
+        <div
+          className="flex flex-wrap -m-4 overflow-y-scroll"
+          style={{ height: "500px" }}
+        >
+          {imageList()}
+        </div>
       </div>
     </section>
   );

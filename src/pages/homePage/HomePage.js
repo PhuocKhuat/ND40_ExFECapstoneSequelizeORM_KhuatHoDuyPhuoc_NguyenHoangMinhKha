@@ -3,6 +3,7 @@ import SearchImage from "./SearchImage/SearchImage";
 import ImageList from "./ImageList/ImageList";
 import Introduction from "./Introduction/Introduction";
 import "../../common/styleCommon.css";
+import PetService from "./PetService/PetService";
 
 export default function HomePage() {
   return (
@@ -10,6 +11,7 @@ export default function HomePage() {
       <SearchImage />
       <Introduction />
       <ImageList />
+      <PetService />
     </div>
   );
 }
