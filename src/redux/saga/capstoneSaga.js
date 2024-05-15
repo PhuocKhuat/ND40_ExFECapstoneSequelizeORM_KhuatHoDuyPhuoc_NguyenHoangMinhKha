@@ -6,6 +6,8 @@ import {
   ADD_IMAGES,
   ADD_IMAGES_SAGA,
   ADD_IMAGES_SUCCESS,
+  DELETE_CREATED_IMAGE,
+  DELETE_CREATED_IMAGE_SAGA,
   DELETE_SAVED_IMAGE,
   DELETE_SAVED_IMAGE_SAGA,
   GET_COMMENT_INFO,
@@ -271,6 +273,22 @@ function* getCreatedImageAction() {
   }
 }
 
+function* deleteCreatedImageAction(action){
+  const { payload } = action;
+  try {
+    const { data } = yield call(capstoneService.deleteCreatedImage, payload);
+
+    if(data.status === 200){
+      yield put({
+        type: DELETE_CREATED_IMAGE,
+        payload,
+      })
+    }
+  } catch (error) {
+    
+  }
+}
+
 export function* previewActionImgList() {
   yield takeLatest(GET_IMG_LIST_SAGA, getImgListAction);
 }
@@ -321,4 +339,8 @@ export function* previewDeleteSavedImageAction() {
 
 export function* previewListOfCreatedImageAction() {
   yield takeLatest(GET_CREATED_IMAGE_SAGA, getCreatedImageAction);
+}
+
+export function* previewDeleteCreatedImageAction() {
+  yield takeLatest(DELETE_CREATED_IMAGE_SAGA, deleteCreatedImageAction);
 }

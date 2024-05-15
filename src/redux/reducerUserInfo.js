@@ -1,4 +1,5 @@
 import {
+  DELETE_CREATED_IMAGE,
   DELETE_SAVED_IMAGE,
   GET_CREATED_IMAGE,
   GET_CREATED_IMAGE_SAGA,
@@ -33,6 +34,13 @@ export let reducerUserInfo = (state = initialState, { type, payload }) => {
 
     case IS_HOVERING_CREATED_IMAGE:
       return { ...state, isHovering: payload };
+
+    case DELETE_CREATED_IMAGE:
+      const cloneListOfCreatedImage = [...state.listOfCreatedImage];
+      const deleteCreatedImage = cloneListOfCreatedImage.filter(
+        (img) => img.imgId !== payload
+      );
+      return { ...state, listOfCreatedImage: deleteCreatedImage };
 
     default:
       return state;

@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BASE_IMG_URL,
+  DELETE_CREATED_IMAGE_SAGA,
   GET_CREATED_IMAGE_SAGA,
   IS_HOVERING_CREATED_IMAGE,
 } from "../../../action/action";
 import { DeleteOutlined } from "@ant-design/icons";
+import { NavLink } from "react-router-dom";
 
 export default function CreatedImage() {
   const { listOfCreatedImage, isHovering } = useSelector(
@@ -25,7 +27,7 @@ export default function CreatedImage() {
   const renderListOfCreatedImage = () =>
     listOfCreatedImage.map((item, index) => (
       <div className="p-4 lg:w-1/5 md:w-1/2" key={index}>
-        <div
+        <NavLink
           className="h-full flex flex-col items-center text-center relative"
           onMouseEnter={() => {
             dispatch({
@@ -39,6 +41,7 @@ export default function CreatedImage() {
               payload: -1,
             });
           }}
+          to={`/img-info/${item.imgId}`}
         >
           <img
             alt="team"
@@ -50,16 +53,21 @@ export default function CreatedImage() {
               isHovering === index ? "" : "hidden"
             }`}
           >
-            <button className="absolute right-4 bottom-56 text-red-600">
+            <button className="absolute right-4 bottom-56 text-red-600" onClick={()=>{
+              dispatch({
+                type: DELETE_CREATED_IMAGE_SAGA,
+                payload: item.imgId,
+              })
+            }}>
               <DeleteOutlined />
             </button>
-            <h2 className="title-font font-medium text-lg text-gray-900">
+            <h2 className="title-font font-medium text-lg text-gray-900 truncate">
               {item.imgName}
             </h2>
-            <h3 className="text-gray-500 mb-3">{item.user.fullName}</h3>
-            <p className="mb-4">{item.description}</p>
+            <h3 className="text-gray-200 mb-3">{item.user.fullName}</h3>
+            <p className="mb-4 truncate">{item.description}</p>
           </div>
-        </div>
+        </NavLink>
       </div>
     ));
 
@@ -75,7 +83,7 @@ export default function CreatedImage() {
             enjoy the awesome experiences.
           </p>
         </div>
-        <div className="flex flex-wrap -m-4">{renderListOfCreatedImage()}</div>
+        <div className="flex flex-wrap -m-4 overflow-y-scroll" style={{height: "300px"}}>{renderListOfCreatedImage()}</div>
       </div>
     </section>
   );

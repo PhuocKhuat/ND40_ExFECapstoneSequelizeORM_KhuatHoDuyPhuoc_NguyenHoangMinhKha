@@ -28,6 +28,8 @@ export class CapstoneService {
   deleteSavedImage = (payload) => http.delete(`/image/delete_saved-image?imgId=${payload}`);
   
   getListOfCreatedImage = () => http.get("/image/get-list-created-image");
+
+  deleteCreatedImage = (payload) => http.delete(`/image/delete-image/${payload}`);
 }
 
 export const capstoneService = new CapstoneService();

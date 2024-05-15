@@ -22,21 +22,23 @@ export default function SearchImage() {
   });
 
   return (
-    <div className="homeBar flex">
-      <AddImage />
-      <Formik initialValues={initialValues}>
-        <Form className="formHome ms-4" onSubmit={handleSubmit}>
-          <Field
-            type="text"
-            name="searchImage"
-            value={values.searchImage}
-            onChange={handleChange}
-            className="searchImage rounded-3xl outline-none"
-            placeholder="Search image name ..."
-          />
-        </Form>
-      </Formik>
-      <BellOutlined className="mx-5 text-2xl" />
+    <div className="homeBar">
+      <div className="container flex">
+        <AddImage />
+        <Formik initialValues={initialValues}>
+          <Form className="formHome ms-4" onSubmit={handleSubmit}>
+            <Field
+              type="text"
+              name="searchImage"
+              value={values.searchImage}
+              onChange={handleChange}
+              className="searchImage rounded-3xl outline-none"
+              placeholder="Search image name ..."
+            />
+          </Form>
+        </Formik>
+        <BellOutlined className="mx-5 text-2xl" />
+      </div>
     </div>
   );
 }

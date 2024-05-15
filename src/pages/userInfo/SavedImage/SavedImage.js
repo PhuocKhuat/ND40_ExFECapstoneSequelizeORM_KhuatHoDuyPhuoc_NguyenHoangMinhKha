@@ -9,6 +9,7 @@ import {
 import "./styleSavedImage.scss";
 import "../../../common/styleCommon.css";
 import { DeleteOutlined } from "@ant-design/icons";
+import { NavLink } from "react-router-dom";
 
 export default function SavedImage() {
   const { listOfSavedImage, isHovering } = useSelector(
@@ -28,7 +29,7 @@ export default function SavedImage() {
   const renderListOfSavedImage = () =>
     listOfSavedImage.map((item, index) => (
       <div className="p-4 lg:w-1/5 md:w-1/2 relative" key={index}>
-        <div
+        <NavLink
           className="h-full flex flex-col items-center text-center relative"
           onMouseEnter={() => {
             dispatch({ type: IS_HOVERING_SAVED_IMAGE, payload: index });
@@ -36,6 +37,7 @@ export default function SavedImage() {
           onMouseLeave={() => {
             dispatch({ type: IS_HOVERING_SAVED_IMAGE, payload: -1 });
           }}
+          to={`/img-info/${item.img.imgId}`}
         >
           <img
             alt="team"
@@ -63,7 +65,7 @@ export default function SavedImage() {
               {item.img.description}
             </p>
           </div>
-        </div>
+        </NavLink>
       </div>
     ));
 
@@ -79,7 +81,7 @@ export default function SavedImage() {
             enjoy the awesome experiences.
           </p>
         </div>
-        <div className="flex flex-wrap -m-4">{renderListOfSavedImage()}</div>
+        <div className="flex flex-wrap -m-4 overflow-y-scroll" style={{height: "300px"}}>{renderListOfSavedImage()}</div>
       </div>
     </section>
   );
