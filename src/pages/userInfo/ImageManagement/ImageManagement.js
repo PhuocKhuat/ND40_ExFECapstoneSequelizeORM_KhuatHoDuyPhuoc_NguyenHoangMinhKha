@@ -6,7 +6,7 @@ import CreatedImage from "../CreatedImage/CreatedImage";
 import "../../../common/styleCommon.css"
 
 const ImageManagement = () => (
-  <div className="imageManagement">
+  <div className="imageManagement pt-8">
     <div className="container">
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Saved image" key="1">

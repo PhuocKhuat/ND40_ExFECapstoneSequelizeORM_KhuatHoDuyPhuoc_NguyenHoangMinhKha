@@ -2,16 +2,20 @@ import {
   DELETE_CREATED_IMAGE,
   DELETE_SAVED_IMAGE,
   GET_CREATED_IMAGE,
-  GET_CREATED_IMAGE_SAGA,
   GET_SAVED_IMAGE,
   IS_HOVERING_CREATED_IMAGE,
   IS_HOVERING_SAVED_IMAGE,
+  UPDATE_USER_FORM,
+  UPDATE_USER_FORM_INITIAL,
+  UPDATE_USER_INFO,
 } from "../action/action";
+import { UserInfo } from "../objectClass/userInfo";
 
 const initialState = {
   listOfSavedImage: [],
   isHovering: -1,
   listOfCreatedImage: [],
+  updateUserInfo: new UserInfo(),
 };
 
 export let reducerUserInfo = (state = initialState, { type, payload }) => {
@@ -42,6 +46,15 @@ export let reducerUserInfo = (state = initialState, { type, payload }) => {
       );
       return { ...state, listOfCreatedImage: deleteCreatedImage };
 
+    case UPDATE_USER_FORM:
+      return { ...state, updateUserInfo: payload };
+      
+    case UPDATE_USER_FORM_INITIAL:
+      return { ...state, updateUserInfo: payload };
+
+    case UPDATE_USER_INFO:
+      return { ...state, updateUserInfo: payload };
+      
     default:
       return state;
   }

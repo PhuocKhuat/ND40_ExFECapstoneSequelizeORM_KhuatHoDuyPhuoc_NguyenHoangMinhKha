@@ -1,4 +1,8 @@
-import { POST_LOGIN, SELECT_TAB, SWITCH_TAB } from "../action/action";
+import {
+  POST_LOGIN,
+  SELECT_TAB,
+  SWITCH_TAB,
+} from "../action/action";
 
 const initialState = {
   users: JSON.parse(localStorage.getItem("LOGIN_USER")),

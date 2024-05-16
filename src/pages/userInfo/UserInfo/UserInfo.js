@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { USER_INFO_SAGA } from "../../../action/action";
+import { UPDATE_USER_FORM, USER_INFO_SAGA } from "../../../action/action";
 
-export default function UserInfo() {
+export default function UserInfo({ handleCancel }) {
   const { users } = useSelector((state) => state.reducerLogin);
   // console.log("🚀 ~ UserInfo ~ users:", users)
 
@@ -27,6 +27,13 @@ export default function UserInfo() {
     initialValues: initialValues,
     onSubmit: (values) => {
       console.log("🚀 ~ UserInfo ~ values:", values);
+
+      dispatch({
+        type: UPDATE_USER_FORM,
+        payload: values,
+      });
+
+      handleCancel();
     },
   });
 
@@ -40,7 +47,6 @@ export default function UserInfo() {
   }, [users]);
 
   const handleReset = () => {
-    // Xử lý reset các giá trị trường input
     resetForm({
       values: {
         ...initialValues,

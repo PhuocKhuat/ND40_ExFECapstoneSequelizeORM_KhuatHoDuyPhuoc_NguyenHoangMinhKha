@@ -27,6 +27,7 @@ import {
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
   SWITCH_TAB,
+  UPDATE_USER_INFO,
   USER_INFO_SAGA,
 } from "../../action/action";
 import { message } from "antd";
@@ -215,6 +216,11 @@ function* putUpdateUserInfoAction(action) {
     const { data } = yield call(capstoneService.putUpdateUserInfo, payload);
 
     if (data.status === 200) {
+      yield put({
+        type: UPDATE_USER_INFO,
+        payload: data.data,
+      });
+
       message.success(data.message);
     }
   } catch (error) {
