@@ -4,6 +4,7 @@ import {
   GitlabOutlined,
   LogoutOutlined,
   UserOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import "./styleHeader.scss";
 import { useSelector } from "react-redux";
@@ -14,7 +15,7 @@ export default function Header() {
   console.log("🚀 ~ Header ~ users:", users);
 
   const renderUsers = () => {
-    if (users) {
+    if (users?.data.role === "user") {
       return (
         <>
           <div className="flex space-x-4">
@@ -35,6 +36,30 @@ export default function Header() {
                 <LogoutOutlined />
               </button>
             </div>
+          </div>
+        </>
+      );
+    } else if (users?.data.role === "admin") {
+      return (
+        <>
+          <div className="flex space-x-4">
+            <div>
+              <div className="space-x-2">
+                <NavLink className=" text-xl" to="">
+                  <SettingOutlined />
+                </NavLink>
+                <span className="text-white">Hi, {users.data?.email}</span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                localStorage.removeItem("LOGIN_USER");
+                window.location.href = "/";
+              }}
+              className="text-xl"
+            >
+              <LogoutOutlined />
+            </button>
           </div>
         </>
       );

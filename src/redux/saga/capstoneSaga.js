@@ -303,6 +303,7 @@ function* refreshTokenAction() {
 
     if (data.status === 200) {
       localStorage.setItem("LOGIN_USER", JSON.stringify(data));
+      window.location.reload();
     }
   } catch (error) {
     localStorage.removeItem("LOGIN_USER");

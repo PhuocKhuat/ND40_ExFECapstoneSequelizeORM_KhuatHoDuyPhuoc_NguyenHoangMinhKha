@@ -18,16 +18,17 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/img-info/:imgId" element={<DetaiPage />} />
+          <Route path="/admin">
+            <Route path="management" />
+          </Route>
           <Route
-            path="/admin"
+            path="/add-image"
             element={
               <PrivateLayout>
-                <AdminLayout />
+                <AddImage />
               </PrivateLayout>
             }
-          >
-            <Route path="add-image" element={<AddImage />} />
-          </Route>
+          />
           <Route
             path="/show-user-info"
             element={

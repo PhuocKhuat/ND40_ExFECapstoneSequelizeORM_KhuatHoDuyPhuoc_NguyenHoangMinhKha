@@ -20,16 +20,18 @@ http.interceptors.request.use(
 );
 
 http.interceptors.response.use(
-  function (response) {
+  (response) => {
     return response;
   },
-  function (error) {
+  (error) => {
     if (
-      (error.response.data.message =
-        "The token has expired, wrong security key or is invalid")
-      ){
+      error?.response?.data?.message ===
+      "The token has expired, wrong security key or is invalid"
+    ) {
       store.dispatch({ type: REFRESH_TOKEN });
+    } else if (error?.response?.status === 401) {
+      localStorage.removeItem("LOGIN_USER");
     }
-      return Promise.reject(error);
+    return Promise.reject(error);
   }
 );

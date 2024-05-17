@@ -1,0 +1,27 @@
+.addImage {
+  .labelImage {
+    width: 600px;
+  }
+  .field {
+    background-color: rgb(241, 234, 234);
+    border-radius: 15px;
+    height: 40px;
+    outline: none;
+    padding: 10px;
+  }
+  .field2{
+    height: 140px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .labelImage {
+    width: 75vw !important;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .field {
+    width: 68vw !important;
+  }
+}
