@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const { users } = useSelector((state) => state.reducerLogin);
-  // console.log("🚀 ~ Header ~ users:", users);
+  console.log("🚀 ~ Header ~ users:", users);
 
   const renderUsers = () => {
     if (users) {
@@ -22,7 +22,7 @@ export default function Header() {
               <NavLink className=" text-xl" to="/show-user-info">
                 <UserOutlined />
               </NavLink>
-              <span className="text-white">Hi, {users?.data?.email}</span>
+              <span className="text-white">Hi, {users.data?.email}</span>
             </div>
             <div>
               <button

@@ -24,12 +24,16 @@ export class CapstoneService {
   putUpdateUserInfo = (payload) => http.put("/user/update-user-info", payload);
 
   getListOfSavedImage = () => http.get("/image/get-list-saved-image");
-  
-  deleteSavedImage = (payload) => http.delete(`/image/delete_saved-image?imgId=${payload}`);
-  
+
+  deleteSavedImage = (payload) =>
+    http.delete(`/image/delete_saved-image?imgId=${payload}`);
+
   getListOfCreatedImage = () => http.get("/image/get-list-created-image");
 
-  deleteCreatedImage = (payload) => http.delete(`/image/delete-image/${payload}`);
+  deleteCreatedImage = (payload) =>
+    http.delete(`/image/delete-image/${payload}`);
+
+  refreshToken = () => http.post("/user/refresh-token");
 }
 
 export const capstoneService = new CapstoneService();

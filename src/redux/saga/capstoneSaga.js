@@ -23,6 +23,7 @@ import {
   POST_LOGIN,
   POST_LOGIN_SAGA,
   POST_SIGNUP_SAGA,
+  REFRESH_TOKEN,
   SAVE_IMAGE_SAGA,
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
@@ -279,19 +280,33 @@ function* getCreatedImageAction() {
   }
 }
 
-function* deleteCreatedImageAction(action){
+function* deleteCreatedImageAction(action) {
   const { payload } = action;
   try {
     const { data } = yield call(capstoneService.deleteCreatedImage, payload);
 
-    if(data.status === 200){
+    if (data.status === 200) {
       yield put({
         type: DELETE_CREATED_IMAGE,
         payload,
-      })
+      });
     }
   } catch (error) {
-    
+    console.log("🚀 ~ function*deleteCreatedImageAction ~ error:", error);
+  }
+}
+
+function* refreshTokenAction() {
+  try {
+    const { data } = yield call(capstoneService.refreshToken);
+    console.log("🚀 ~ function*refreshTokenAction ~ data:", data);
+
+    if (data.status === 200) {
+      localStorage.setItem("LOGIN_USER", JSON.stringify(data));
+    }
+  } catch (error) {
+    localStorage.removeItem("LOGIN_USER");
+    console.log("🚀 ~ function*refreshTokenAction ~ error:", error);
   }
 }
 
@@ -349,4 +364,8 @@ export function* previewListOfCreatedImageAction() {
 
 export function* previewDeleteCreatedImageAction() {
   yield takeLatest(DELETE_CREATED_IMAGE_SAGA, deleteCreatedImageAction);
+}
+
+export function* previewRefreshTokenAction() {
+  yield takeLatest(REFRESH_TOKEN, refreshTokenAction);
 }

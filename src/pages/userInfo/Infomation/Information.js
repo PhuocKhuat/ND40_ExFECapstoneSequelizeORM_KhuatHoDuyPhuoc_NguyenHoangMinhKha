@@ -38,10 +38,10 @@ export default function Information() {
         />
         <div className="text-center lg:w-2/3 w-full text-white">
           <h1 className="title-font sm:text-4xl text-xl mb-4 font-medium text-gray-900">
-            {updateUserInfo.fullName}
+            {updateUserInfo?.fullName}
           </h1>
-          <p className="mb-2 leading-relaxed text-lg">{updateUserInfo.email}</p>
-          <p className="mb-2 leading-relaxed text-lg">{updateUserInfo.age}</p>
+          <p className="mb-2 leading-relaxed text-lg">{updateUserInfo?.email}</p>
+          <p className="mb-2 leading-relaxed text-lg">{updateUserInfo?.age}</p>
           <p className="mb-6 leading-relaxed">0 people are following</p>
           <div className="flex justify-center space-x-5">
             <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
