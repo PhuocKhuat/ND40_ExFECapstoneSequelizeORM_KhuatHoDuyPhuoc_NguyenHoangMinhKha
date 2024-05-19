@@ -41,7 +41,7 @@ export default function CreatedImage() {
               payload: -1,
             });
           }}
-          to={`/img-info/${item.imgId}`}
+          // to={`/img-info/${item.imgId}`}
         >
           <img
             alt="team"

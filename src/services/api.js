@@ -29,9 +29,7 @@ http.interceptors.response.use(
       "The token has expired, wrong security key or is invalid"
     ) {
       store.dispatch({ type: REFRESH_TOKEN });
-    } else if (error?.response?.status === 401) {
-      localStorage.removeItem("LOGIN_USER");
-    }
+    } 
     return Promise.reject(error);
   }
 );

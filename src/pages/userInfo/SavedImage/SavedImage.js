@@ -37,7 +37,7 @@ export default function SavedImage() {
           onMouseLeave={() => {
             dispatch({ type: IS_HOVERING_SAVED_IMAGE, payload: -1 });
           }}
-          to={`/img-info/${item.img.imgId}`}
+          // to={`/img-info/${item.img.imgId}`}
         >
           <img
             alt="team"

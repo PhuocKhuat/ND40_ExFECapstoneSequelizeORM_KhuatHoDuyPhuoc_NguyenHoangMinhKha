@@ -36,6 +36,8 @@ export class CapstoneService {
   refreshToken = () => http.post("/user/refresh-token");
 
   getUserList = () => http.get("/user/get-user-list");
+
+  deleteUser = (payload) => http.delete(`/user/delete-user/?UserId=${payload}`);
 }
 
 export const capstoneService = new CapstoneService();

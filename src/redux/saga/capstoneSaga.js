@@ -10,6 +10,8 @@ import {
   DELETE_CREATED_IMAGE_SAGA,
   DELETE_SAVED_IMAGE,
   DELETE_SAVED_IMAGE_SAGA,
+  DELETE_USER,
+  DELETE_USER_SAGA,
   GET_COMMENT_INFO,
   GET_COMMENT_INFO_SAGA,
   GET_CREATED_IMAGE,
@@ -308,22 +310,41 @@ function* refreshTokenAction() {
       window.location.reload();
     }
   } catch (error) {
-    localStorage.removeItem("LOGIN_USER");
+    // localStorage.removeItem("LOGIN_USER");
     console.log("🚀 ~ function*refreshTokenAction ~ error:", error);
   }
 }
-function* getUserListAction(){
+function* getUserListAction() {
   try {
     const { data } = yield call(capstoneService.getUserList);
 
-    if(data.status === 200){
+    if (data.status === 200) {
       yield put({
         type: GET_USER_LIST,
         payload: data.data,
-      })
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*getUserListAction ~ error:", error);
+  }
+}
+
+function* deleteUserAction(action) {
+  const { payload } = action;
+  try {
+    const { data } = yield call(capstoneService.deleteUser, payload);
+  console.log("🚀 ~ function*deleteUserAction ~ data:", data)
+
+  if(data.status === 200){
+    yield put({
+      type: DELETE_USER,
+      payload: payload,
+    })
+
+    message.success(data.message);
+  }
+  } catch (error) {
+    console.log("🚀 ~ function*deleteUserAction ~ error:", error);
     
   }
 }
@@ -390,4 +411,8 @@ export function* previewRefreshTokenAction() {
 
 export function* previewGetUserListAction() {
   yield takeLatest(GET_USER_LIST_SAGA, getUserListAction);
+}
+
+export function* previewDeleteUserAction() {
+  yield takeLatest(DELETE_USER_SAGA, deleteUserAction);
 }
