@@ -45,7 +45,7 @@ export default function Header() {
           <div className="flex space-x-4">
             <div>
               <div className="space-x-2">
-                <NavLink className=" text-xl" to="">
+                <NavLink className=" text-xl" to="/admin/users">
                   <SettingOutlined />
                 </NavLink>
                 <span className="text-white">Hi, {users.data?.email}</span>

@@ -6,6 +6,7 @@ import {
   previewCommentInfoAction,
   previewDeleteCreatedImageAction,
   previewDeleteSavedImageAction,
+  previewGetUserListAction,
   previewImgInfoAction,
   previewListOfCreatedImageAction,
   previewListOfSavedImageAction,
@@ -33,6 +34,7 @@ export default function* rootSaga() {
     previewDeleteSavedImageAction(),
     previewListOfCreatedImageAction(),
     previewDeleteCreatedImageAction(),
-    previewRefreshTokenAction()
+    previewRefreshTokenAction(),
+    previewGetUserListAction()
   ]);
 }

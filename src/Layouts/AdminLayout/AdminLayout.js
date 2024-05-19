@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
@@ -19,8 +19,8 @@ const AdminLayout = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            <NavLink to="add-image">Add image</NavLink>
+          <Menu.Item key="1" icon={<UserOutlined />}>
+            <NavLink>Users management</NavLink>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -51,7 +51,7 @@ const AdminLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          <Outlet/>
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

@@ -20,6 +20,8 @@ import {
   GET_IMG_LIST_SAGA,
   GET_SAVED_IMAGE,
   GET_SAVED_IMAGE_SAGA,
+  GET_USER_LIST,
+  GET_USER_LIST_SAGA,
   POST_LOGIN,
   POST_LOGIN_SAGA,
   POST_SIGNUP_SAGA,
@@ -310,6 +312,21 @@ function* refreshTokenAction() {
     console.log("🚀 ~ function*refreshTokenAction ~ error:", error);
   }
 }
+function* getUserListAction(){
+  try {
+    const { data } = yield call(capstoneService.getUserList);
+
+    if(data.status === 200){
+      yield put({
+        type: GET_USER_LIST,
+        payload: data.data,
+      })
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*getUserListAction ~ error:", error);
+    
+  }
+}
 
 export function* previewActionImgList() {
   yield takeLatest(GET_IMG_LIST_SAGA, getImgListAction);
@@ -369,4 +386,8 @@ export function* previewDeleteCreatedImageAction() {
 
 export function* previewRefreshTokenAction() {
   yield takeLatest(REFRESH_TOKEN, refreshTokenAction);
+}
+
+export function* previewGetUserListAction() {
+  yield takeLatest(GET_USER_LIST_SAGA, getUserListAction);
 }

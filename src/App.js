@@ -9,6 +9,8 @@ import Footer from "./components/Footer/Footer.js";
 import ShowUserInfo from "./pages/userInfo/ShowUserInfo.js";
 import AdminLayout from "./Layouts/AdminLayout/AdminLayout.js";
 import PrivateLayout from "./Layouts/PrivateLayout/PrivateLayout.js";
+import Users from "./pages/AdminPage/User/Users.js";
+import SecureGate from "./Layouts/SecureGate/SecureGate.js";
 
 function App() {
   return (
@@ -18,8 +20,15 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/img-info/:imgId" element={<DetaiPage />} />
-          <Route path="/admin">
-            <Route path="management" />
+          <Route
+            path="/admin"
+            element={
+              <SecureGate>
+                <AdminLayout />
+              </SecureGate>
+            }
+          >
+            <Route path="users" element={<Users />} />
           </Route>
           <Route
             path="/add-image"
