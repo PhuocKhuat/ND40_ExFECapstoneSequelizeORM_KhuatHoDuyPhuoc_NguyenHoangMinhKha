@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Space, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_USER_SAGA, GET_USER_LIST_SAGA } from "../../../action/action";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import Modals from "../../userInfo/Modals/Modals";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
+import DrawerAddUser from "../../../Drawer/DrawerAddUser/DrawerAddUser";
 
 const Users = () => {
   const { userList } = useSelector((state) => state.reducerAdmin);
@@ -14,14 +18,6 @@ const Users = () => {
   useEffect(() => {
     dispatch({ type: GET_USER_LIST_SAGA });
   }, []);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   const columns = [
     {
@@ -92,14 +88,17 @@ const Users = () => {
   };
 
   return (
-    <Table
-      columns={columns}
-      dataSource={userList}
-      onChange={onChange}
-      showSorterTooltip={{
-        target: "sorter-icon",
-      }}
-    />
+    <>
+      <DrawerAddUser />
+      <Table
+        columns={columns}
+        dataSource={userList}
+        onChange={onChange}
+        showSorterTooltip={{
+          target: "sorter-icon",
+        }}
+      />
+    </>
   );
 };
 export default Users;

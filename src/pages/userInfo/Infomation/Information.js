@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styleInformation.scss";
 import UserInfo from "../UserInfo/UserInfo";
 import { Modal } from "antd";
-import { UPDATE_USER_FORM, UPDATE_USER_FORM_INITIAL } from "../../../action/action";
+import { UPDATE_USER_FORM_INITIAL } from "../../../action/action";
 
 export default function Information() {
   const { users } = useSelector((state) => state.reducerLogin);
