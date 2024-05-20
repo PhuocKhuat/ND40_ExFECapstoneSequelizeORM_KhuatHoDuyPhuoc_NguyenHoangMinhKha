@@ -22,6 +22,7 @@ export default function ImgInfo() {
   useEffect(() => {
     dispatch({ type: GET_IMG_INFO_SAGA, payload: imgId });
     dispatch({ type: GET_COMMENT_INFO_SAGA, payload: imgId });
+    window.scrollTo(0, 0);
   }, [imgId]);
 
   return (

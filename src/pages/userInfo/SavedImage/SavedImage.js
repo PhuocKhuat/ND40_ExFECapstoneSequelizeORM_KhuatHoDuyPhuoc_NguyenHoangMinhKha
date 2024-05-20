@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BASE_IMG_URL,
@@ -6,10 +6,9 @@ import {
   GET_SAVED_IMAGE_SAGA,
   IS_HOVERING_SAVED_IMAGE,
 } from "../../../action/action";
-import "./styleSavedImage.scss";
-import "../../../common/styleCommon.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
+import Modals from "../Modals/Modals";
 
 export default function SavedImage() {
   const { listOfSavedImage, isHovering } = useSelector(
@@ -26,9 +25,29 @@ export default function SavedImage() {
     });
   }, []);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const renderListOfSavedImage = () =>
     listOfSavedImage.map((item, index) => (
       <div className="p-4 lg:w-1/5 md:w-1/2 relative" key={index}>
+          <DeleteOutlined
+            className="absolute right-0 bottom-64 text-red-600 cursor-pointer"
+            onClick={() => {
+              showModal();
+            }}
+          />
+        <Modals
+          isModalOpen={isModalOpen}
+          handleCancel={handleCancel}
+          type={DELETE_SAVED_IMAGE_SAGA}
+          payload={item.img.imgId}
+        />
         <NavLink
           className="h-full flex flex-col items-center text-center relative"
           onMouseEnter={() => {
@@ -37,7 +56,7 @@ export default function SavedImage() {
           onMouseLeave={() => {
             dispatch({ type: IS_HOVERING_SAVED_IMAGE, payload: -1 });
           }}
-          // to={`/img-info/${item.img.imgId}`}
+          to={`/img-info/${item.img.imgId}`}
         >
           <img
             alt="team"
@@ -49,14 +68,6 @@ export default function SavedImage() {
               isHovering === index ? "" : "hidden"
             }`}
           >
-            <button className="absolute right-2 bottom-56 text-red-600" onClick={()=>{
-               dispatch({
-                type: DELETE_SAVED_IMAGE_SAGA,
-                payload: item.img.imgId,
-               })
-            }}>
-              <DeleteOutlined />
-            </button>
             <h2 className="title-font font-medium text-lg text-gray-900">
               {item.img.imgName}
             </h2>
@@ -81,7 +92,12 @@ export default function SavedImage() {
             enjoy the awesome experiences.
           </p>
         </div>
-        <div className="flex flex-wrap -m-4 overflow-y-scroll" style={{height: "300px"}}>{renderListOfSavedImage()}</div>
+        <div
+          className="flex flex-wrap -m-4 overflow-y-scroll"
+          style={{ height: "300px" }}
+        >
+          {renderListOfSavedImage()}
+        </div>
       </div>
     </section>
   );

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Space, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_USER_SAGA, GET_USER_LIST_SAGA } from "../../../action/action";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import Modals from "../../userInfo/Modals/Modals";
 
 const Users = () => {
   const { userList } = useSelector((state) => state.reducerAdmin);
@@ -13,6 +14,14 @@ const Users = () => {
   useEffect(() => {
     dispatch({ type: GET_USER_LIST_SAGA });
   }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const columns = [
     {
@@ -41,8 +50,6 @@ const Users = () => {
       title: "Age",
       dataIndex: "age",
       key: "age",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.age - b.age,
     },
     {
       title: "Role",
@@ -64,17 +71,19 @@ const Users = () => {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <Space size="middle" className="cursor-pointer">
-          <EditOutlined className="text-yellow-500" />
-          <DeleteOutlined
-            className="text-red-500"
-            onClick={() => {
-              dispatch({ type: DELETE_USER_SAGA, payload: record.userId });
-            }}
-          />
-        </Space>
-      ),
+      render: (_, record) => {
+        return (
+          <Space size="middle" className="cursor-pointer">
+            <EditOutlined className="text-yellow-500" />
+            <DeleteOutlined
+              className="text-red-500"
+              onClick={() => {
+                dispatch({ type: DELETE_USER_SAGA, payload: record.userId });
+              }}
+            />
+          </Space>
+        );
+      },
     },
   ];
 

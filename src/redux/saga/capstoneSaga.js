@@ -36,6 +36,7 @@ import {
   USER_INFO_SAGA,
 } from "../../action/action";
 import { message } from "antd";
+import Swal from "sweetalert2";
 
 function* getImgListAction() {
   try {
@@ -262,7 +263,11 @@ function* deleteSavedImageAction(action) {
         payload,
       });
 
-      message.success(data.message);
+      Swal.fire({
+        title: "Information!",
+        text: "You've successfully deleted the image",
+        icon: "success",
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*deleteSavedImageAction ~ error:", error);
@@ -294,6 +299,12 @@ function* deleteCreatedImageAction(action) {
         type: DELETE_CREATED_IMAGE,
         payload,
       });
+
+      Swal.fire({
+        title: "Information!",
+        text: "You've successfully deleted the image",
+        icon: "success",
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*deleteCreatedImageAction ~ error:", error);
@@ -308,12 +319,17 @@ function* refreshTokenAction() {
     if (data.status === 200) {
       localStorage.setItem("LOGIN_USER", JSON.stringify(data));
       window.location.reload();
+      return;
     }
+    
+    localStorage.removeItem("LOGIN_USER");
   } catch (error) {
-    // localStorage.removeItem("LOGIN_USER");
+    localStorage.removeItem("LOGIN_USER");
+    
     console.log("🚀 ~ function*refreshTokenAction ~ error:", error);
   }
 }
+
 function* getUserListAction() {
   try {
     const { data } = yield call(capstoneService.getUserList);
@@ -333,19 +349,22 @@ function* deleteUserAction(action) {
   const { payload } = action;
   try {
     const { data } = yield call(capstoneService.deleteUser, payload);
-  console.log("🚀 ~ function*deleteUserAction ~ data:", data)
+    console.log("🚀 ~ function*deleteUserAction ~ data:", data);
 
-  if(data.status === 200){
-    yield put({
-      type: DELETE_USER,
-      payload: payload,
-    })
+    if (data.status === 200) {
+      yield put({
+        type: DELETE_USER,
+        payload: payload,
+      });
 
-    message.success(data.message);
-  }
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
+    }
   } catch (error) {
     console.log("🚀 ~ function*deleteUserAction ~ error:", error);
-    
   }
 }
 
