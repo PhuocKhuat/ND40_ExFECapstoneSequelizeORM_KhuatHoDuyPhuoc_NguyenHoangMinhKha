@@ -6,6 +6,7 @@ import {
   ADD_IMAGES,
   ADD_IMAGES_SAGA,
   ADD_IMAGES_SUCCESS,
+  ADD_USER_SAGA,
   DELETE_CREATED_IMAGE,
   DELETE_CREATED_IMAGE_SAGA,
   DELETE_SAVED_IMAGE,
@@ -27,7 +28,6 @@ import {
   POST_LOGIN,
   POST_LOGIN_SAGA,
   POST_SIGNUP_SAGA,
-  REFRESH_TOKEN,
   SAVE_IMAGE_SAGA,
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
@@ -37,6 +37,7 @@ import {
 } from "../../action/action";
 import { message } from "antd";
 import Swal from "sweetalert2";
+import { addUser } from "../../action/dispatch";
 
 function* getImgListAction() {
   try {
@@ -67,7 +68,12 @@ function* postLoginAction(action) {
         type: POST_LOGIN,
         payload: data,
       });
-      message.success(data.message);
+
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
 
       localStorage.setItem("LOGIN_USER", JSON.stringify(data));
 
@@ -89,7 +95,11 @@ function* postSignupAction(action) {
     console.log("🚀 ~ function*postSignupAction ~ data:", data);
 
     if (data.status === 200) {
-      message.success(data.message);
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
 
       yield put({
         type: SWITCH_TAB,
@@ -185,7 +195,11 @@ function* getSaveImageAction(action) {
     const { data } = yield call(capstoneService.getSaveImage, payload);
 
     if (data.status === 200) {
-      message.success(data.message);
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*getSaveImageAction ~ error:", error);
@@ -207,7 +221,11 @@ function* postAddImagesAction(action) {
         type: ADD_IMAGES_SUCCESS,
         payload: [],
       });
-      message.success(data.message);
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*postAddImagesAction ~ error:", error);
@@ -227,7 +245,11 @@ function* putUpdateUserInfoAction(action) {
         payload: data.data,
       });
 
-      message.success(data.message);
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
     }
   } catch (error) {
     console.log("🚀 ~ function*putUpdateUserInfoAction ~ error:", error);
@@ -311,24 +333,22 @@ function* deleteCreatedImageAction(action) {
   }
 }
 
-function* refreshTokenAction() {
-  try {
-    const { data } = yield call(capstoneService.refreshToken);
-    console.log("🚀 ~ function*refreshTokenAction ~ data:", data);
+// function* refreshTokenAction() {
+//   try {
+//     const { data } = yield call(capstoneService.refreshToken);
+//     console.log("🚀 ~ function*refreshTokenAction ~ data:", data);
 
-    if (data.status === 200) {
-      localStorage.setItem("LOGIN_USER", JSON.stringify(data));
-      window.location.reload();
-      return;
-    }
-    
-    localStorage.removeItem("LOGIN_USER");
-  } catch (error) {
-    localStorage.removeItem("LOGIN_USER");
-    
-    console.log("🚀 ~ function*refreshTokenAction ~ error:", error);
-  }
-}
+//     if (data.status === 200) {
+//       localStorage.setItem("LOGIN_USER", JSON.stringify(data));
+//       // window.location.reload();
+//       return;
+//     }
+//     localStorage.removeItem("LOGIN_USER");
+//   } catch (error) {
+//     localStorage.removeItem("LOGIN_USER");
+//     console.log("🚀 ~ function*refreshTokenAction ~ error:", error);
+//   }
+// }
 
 function* getUserListAction() {
   try {
@@ -365,6 +385,30 @@ function* deleteUserAction(action) {
     }
   } catch (error) {
     console.log("🚀 ~ function*deleteUserAction ~ error:", error);
+  }
+}
+
+function* addUserAction(action) {
+  const { payload } = action;
+  try {
+    const { data } = yield call(capstoneService.addUser, payload);
+
+    if (data.status === 200) {
+      yield put(addUser(data.data));
+
+      Swal.fire({
+        title: "Information!",
+        text: data.message,
+        icon: "success",
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      title: "Information!",
+      text: "Add user failed",
+      icon: "error",
+    });
+    console.log("🚀 ~ function*addUserAction ~ error:", error);
   }
 }
 
@@ -424,9 +468,9 @@ export function* previewDeleteCreatedImageAction() {
   yield takeLatest(DELETE_CREATED_IMAGE_SAGA, deleteCreatedImageAction);
 }
 
-export function* previewRefreshTokenAction() {
-  yield takeLatest(REFRESH_TOKEN, refreshTokenAction);
-}
+// export function* previewRefreshTokenAction() {
+//   yield takeLatest(REFRESH_TOKEN, refreshTokenAction);
+// }
 
 export function* previewGetUserListAction() {
   yield takeLatest(GET_USER_LIST_SAGA, getUserListAction);
@@ -434,4 +478,8 @@ export function* previewGetUserListAction() {
 
 export function* previewDeleteUserAction() {
   yield takeLatest(DELETE_USER_SAGA, deleteUserAction);
+}
+
+export function* previewAddUserAction() {
+  yield takeLatest(ADD_USER_SAGA, addUserAction);
 }

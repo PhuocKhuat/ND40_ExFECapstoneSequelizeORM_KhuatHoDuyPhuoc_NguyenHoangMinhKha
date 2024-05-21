@@ -5,7 +5,6 @@ import { DELETE_USER_SAGA, GET_USER_LIST_SAGA } from "../../../action/action";
 import {
   EditOutlined,
   DeleteOutlined,
-  UserAddOutlined,
 } from "@ant-design/icons";
 import DrawerAddUser from "../../../Drawer/DrawerAddUser/DrawerAddUser";
 

@@ -3,6 +3,7 @@ import {
   previewActionImgList,
   previewAddCommentAction,
   previewAddImagesAction,
+  previewAddUserAction,
   previewCommentInfoAction,
   previewDeleteCreatedImageAction,
   previewDeleteSavedImageAction,
@@ -12,7 +13,7 @@ import {
   previewListOfCreatedImageAction,
   previewListOfSavedImageAction,
   previewLoginAction,
-  previewRefreshTokenAction,
+  // previewRefreshTokenAction,
   previewSaveImageAction,
   previewSearchAction,
   previewSignupAction,
@@ -35,8 +36,9 @@ export default function* rootSaga() {
     previewDeleteSavedImageAction(),
     previewListOfCreatedImageAction(),
     previewDeleteCreatedImageAction(),
-    previewRefreshTokenAction(),
+    // previewRefreshTokenAction(),
     previewGetUserListAction(),
-    previewDeleteUserAction()
+    previewDeleteUserAction(),
+    previewAddUserAction(),
   ]);
 }

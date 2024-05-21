@@ -38,6 +38,8 @@ export class CapstoneService {
   getUserList = () => http.get("/user/get-user-list");
 
   deleteUser = (payload) => http.delete(`/user/delete-user/?UserId=${payload}`);
+
+  addUser = (payload) => http.post("/user/add-user", payload);
 }
 
 export const capstoneService = new CapstoneService();

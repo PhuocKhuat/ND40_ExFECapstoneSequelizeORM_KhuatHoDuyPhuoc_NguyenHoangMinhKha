@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { UserAddOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import {
+  UserAddOutlined,
+  PlusCircleOutlined,
+  RedoOutlined,
+} from "@ant-design/icons";
 import { Button, Drawer, Space } from "antd";
 import { Formik, Form, Field, useFormik } from "formik";
 import "./styleDrawerAddUser.scss";
+import { useDispatch } from "react-redux";
+import { addUserSaga } from "../../action/dispatch";
 
 const DrawerAddUser = () => {
   const [open, setOpen] = useState(false);
@@ -12,6 +18,8 @@ const DrawerAddUser = () => {
   const onClose = () => {
     setOpen(false);
   };
+
+  const dispatch = useDispatch();
 
   const initialValues = {
     email: "",
@@ -50,8 +58,12 @@ const DrawerAddUser = () => {
         }}
         footer={
           <Space className="my-5">
+            <Button icon={<RedoOutlined />}>Reset</Button>
             <Button
-              onClick={onClose}
+              onClick={() => {
+                dispatch(addUserSaga(values));
+                onClose();
+              }}
               type="primary"
               icon={<PlusCircleOutlined />}
             >
@@ -61,7 +73,7 @@ const DrawerAddUser = () => {
         }
       >
         <Formik initialValues={initialValues}>
-          <Form className="drawerAddUser">
+          <Form onSubmit={handleSubmit} className="drawerAddUser">
             <div className="flex flex-col">
               <label className="font-medium mb-2">Email</label>
               <Field
@@ -115,12 +127,15 @@ const DrawerAddUser = () => {
               <Field
                 className="formInput"
                 placeholder="Please input your role"
-                type="text"
+                as="select"
                 name="role"
                 value={values.role}
                 onChange={handleChange}
                 onBlur={handleBlur}
-              />
+              >
+                <option>user</option>
+                <option>admin</option>
+              </Field>
             </div>
           </Form>
         </Formik>
