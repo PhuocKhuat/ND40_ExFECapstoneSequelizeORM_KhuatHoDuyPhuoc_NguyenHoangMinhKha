@@ -45,7 +45,7 @@ export default function CommentInfo() {
           </div>
           <div>
             <div>
-              <p>{item.user.fullName}</p>
+              <p className="font-bold">{item.user.fullName}</p>
             </div>
             <div>
               <p>{item.contentInfo}</p>

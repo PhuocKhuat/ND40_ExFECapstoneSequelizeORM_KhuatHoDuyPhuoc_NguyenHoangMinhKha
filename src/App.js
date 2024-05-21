@@ -11,6 +11,7 @@ import AdminLayout from "./Layouts/AdminLayout/AdminLayout.js";
 import PrivateLayout from "./Layouts/PrivateLayout/PrivateLayout.js";
 import Users from "./pages/AdminPage/User/Users.js";
 import SecureGate from "./Layouts/SecureGate/SecureGate.js";
+import SearchImagePage from "./pages/SearchImagePage/SearchImagePage.js";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
               </PrivateLayout>
             }
           />
+          <Route path="/search-image/:imgName" element={<SearchImagePage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
