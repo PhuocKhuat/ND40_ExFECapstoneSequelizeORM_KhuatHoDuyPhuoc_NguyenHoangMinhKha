@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import {
-  UserAddOutlined,
-  PlusCircleOutlined,
-  RedoOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, RedoOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space } from "antd";
-import { Formik, Form, Field, useFormik } from "formik";
-import "./styleDrawerAddUser.scss";
-import { useDispatch } from "react-redux";
-import { addUserSaga } from "../../action/dispatch";
+import { Field, Form, Formik, useFormik } from "formik";
 
-const DrawerAddUser = () => {
+const DrawerUpdateUser = ({user}) => {
+  console.log("🚀 ~ DrawerUpdateUser ~ user:", user)
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -19,35 +13,30 @@ const DrawerAddUser = () => {
     setOpen(false);
   };
 
-  const dispatch = useDispatch();
-
   const initialValues = {
-    email: "",
     fullName: "",
     password: "",
     age: "",
     role: "",
   };
+
   const { values, handleSubmit, handleChange, handleBlur, handleReset } =
     useFormik({
       initialValues,
-      validationSchema: "",
       onSubmit: (values) => {
-        console.log("🚀 ~ DrawerAddUser ~ values:", values);
+        console.log("🚀 ~ DrawerUpdateUser ~ values:", values);
       },
     });
 
   return (
     <>
       <Button
-        type="primary"
         onClick={showDrawer}
-        icon={<UserAddOutlined />}
-        className="bg-green-500 text-white text-lg mb-5 p-3 rounded-lg cursor-pointer relative"
-        style={{ left: "97%" }}
+        icon={<EditOutlined />}
+        className="text-yellow-500"
       />
       <Drawer
-        title="Create a new user"
+        title="Update user information"
         width={420}
         onClose={onClose}
         open={open}
@@ -59,32 +48,17 @@ const DrawerAddUser = () => {
         footer={
           <Space className="my-5">
             <Button icon={<RedoOutlined />}>Reset</Button>
-            <Button
-              onClick={() => {
-                dispatch(addUserSaga(values));
-                onClose();
-              }}
-              type="primary"
-              icon={<PlusCircleOutlined />}
-            >
-              Add User
+            <Button onClick={onClose} type="primary" icon={<UploadOutlined />}>
+              Update User
             </Button>
           </Space>
         }
       >
-        <Formik initialValues={initialValues}>
-          <Form onSubmit={handleSubmit} className="drawerAddUser">
+        <Formik>
+          <Form onSubmit={handleSubmit}>
             <div className="flex flex-col">
               <label className="font-medium mb-2">Email</label>
-              <Field
-                className="formInput"
-                placeholder="Please input your email"
-                type="email"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              <Field className="formInput cursor-not-allowed" disabled/>
             </div>
             <div className="flex flex-col mt-6">
               <label className="font-medium mb-2">Full name</label>
@@ -94,18 +68,6 @@ const DrawerAddUser = () => {
                 type="text"
                 name="fullName"
                 value={values.fullName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </div>
-            <div className="flex flex-col mt-6">
-              <label className="font-medium mb-2">Password</label>
-              <Field
-                className="formInput"
-                placeholder="Please input your password"
-                type="password"
-                name="password"
-                value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -126,7 +88,7 @@ const DrawerAddUser = () => {
               <label className="font-medium mb-2">Role</label>
               <Field
                 className="formInput"
-                placeholder="Please input your role"
+                placeholder="Please input your full name"
                 as="select"
                 name="role"
                 value={values.role}
@@ -144,4 +106,4 @@ const DrawerAddUser = () => {
     </>
   );
 };
-export default DrawerAddUser;
+export default DrawerUpdateUser;

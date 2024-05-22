@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { Space, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_USER_SAGA, GET_USER_LIST_SAGA } from "../../../action/action";
-import {
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import DrawerAddUser from "../../../Drawer/DrawerAddUser/DrawerAddUser";
+import DrawerUpdateUser from "../../../Drawer/DrawerUpdateUser/DrawerUpdateUser";
 
 const Users = () => {
   const { userList } = useSelector((state) => state.reducerAdmin);
@@ -69,7 +67,7 @@ const Users = () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="cursor-pointer">
-            <EditOutlined className="text-yellow-500" />
+            <DrawerUpdateUser user={record}/>
             <DeleteOutlined
               className="text-red-500"
               onClick={() => {

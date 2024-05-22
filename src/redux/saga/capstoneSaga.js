@@ -37,17 +37,14 @@ import {
 } from "../../action/action";
 import { message } from "antd";
 import Swal from "sweetalert2";
-import { addUser } from "../../action/dispatch";
+import { addUser, getImgList } from "../../action/dispatch";
 
 function* getImgListAction() {
   try {
     const { data } = yield call(capstoneService.getImgList);
 
     if (data.status === 200) {
-      yield put({
-        type: GET_IMG_LIST,
-        payload: data.data,
-      });
+      yield put(getImgList(data.data));
     } else {
       console.log("error");
     }

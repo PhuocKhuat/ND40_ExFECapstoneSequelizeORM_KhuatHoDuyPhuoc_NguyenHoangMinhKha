@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BASE_IMG_URL, GET_IMG_LIST_SAGA } from "../../../action/action";
+import { BASE_IMG_URL } from "../../../action/action";
 import { NavLink } from "react-router-dom";
 import "./styleImageList.scss";
+import { getImgListSaga } from "../../../action/dispatch";
 
 export default function ImageList() {
   const imgList = useSelector((state) => state.reducer.imgList);
@@ -10,9 +11,7 @@ export default function ImageList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({
-      type: GET_IMG_LIST_SAGA,
-    });
+    dispatch(getImgListSaga());
   }, []);
 
   const imageList = () =>

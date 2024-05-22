@@ -1,12 +1,17 @@
 import {
   ADD_USER,
   ADD_USER_SAGA,
+  GET_IMG_LIST,
   GET_IMG_LIST_SAGA,
   SEARCH_IMAGE_SAGA,
 } from "./action";
 
-const getImgList = () => ({
+const getImgListSaga = () => ({
   type: GET_IMG_LIST_SAGA,
+});
+const getImgList = (payload) => ({
+  type: GET_IMG_LIST,
+  payload,
 });
 
 const searchImgByName = (payload) => ({ type: SEARCH_IMAGE_SAGA, payload });
@@ -20,4 +25,4 @@ const addUser = (payload) => ({
   payload,
 });
 
-export { getImgList, searchImgByName, addUserSaga, addUser };
+export { getImgListSaga, getImgList, searchImgByName, addUserSaga, addUser };
