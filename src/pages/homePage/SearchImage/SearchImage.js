@@ -3,12 +3,9 @@ import React from "react";
 import "./styleImageList.scss";
 import AddImage from "./AddImage/AddImage";
 import { BellOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { SEARCH_IMAGE_SAGA } from "../../../action/action";
 import { useNavigate } from "react-router-dom";
 
 export default function SearchImage() {
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -20,7 +17,6 @@ export default function SearchImage() {
     onSubmit: (values) => {
       console.log("🚀 ~ SearchImage ~ values:", values.searchImage);
       resetForm();
-      dispatch({ type: SEARCH_IMAGE_SAGA, payload: values.searchImage });
       navigate(`/search-image/${values.searchImage}`);
     },
   });

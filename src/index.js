@@ -13,6 +13,7 @@ import { reducerDetail } from "./redux/reducerDetail";
 import { reducerAdmin } from "./redux/reducerAdmin";
 import { reducerUserInfo } from "./redux/reducerUserInfo";
 import { reducerAddImage } from "./redux/reducerAddImage";
+import { reducerSearchImg } from "./redux/reducerSearchImg";
 
 const middleWareSaga = createMiddleWareSage();
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   reducerAddImage,
   reducerAdmin,
   reducerUserInfo,
+  reducerSearchImg,
 });
 
 const store = createStore(rootReducer, applyMiddleware(middleWareSaga));

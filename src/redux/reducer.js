@@ -1,4 +1,4 @@
-import { ADD_IMAGES, GET_IMG_LIST, SEARCH_IMAGE } from "../action/action";
+import { ADD_IMAGES, GET_IMG_LIST } from "../action/action";
 
 const initialState = {
   imgList: [],
@@ -7,9 +7,6 @@ const initialState = {
 export let reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_IMG_LIST:
-      return { ...state, imgList: payload };
-
-    case SEARCH_IMAGE:
       return { ...state, imgList: payload };
 
     case ADD_IMAGES:
