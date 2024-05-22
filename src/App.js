@@ -12,12 +12,14 @@ import PrivateLayout from "./Layouts/PrivateLayout/PrivateLayout.js";
 import Users from "./pages/AdminPage/User/Users.js";
 import SecureGate from "./Layouts/SecureGate/SecureGate.js";
 import SearchImagePage from "./pages/SearchImagePage/SearchImagePage.js";
+import Message from "./pages/homePage/Message/Message.js";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
+        <Message />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/img-info/:imgId" element={<DetaiPage />} />

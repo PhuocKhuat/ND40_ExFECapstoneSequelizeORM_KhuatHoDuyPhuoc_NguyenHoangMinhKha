@@ -56,7 +56,7 @@ export default function ImageList() {
             </h1>
             <div className="h-1 w-20 bg-indigo-500 rounded" />
           </div>
-          <p className="lg:w-1/2 w-full leading-relaxed text-white">
+          <p className="lg:w-1/2 w-full leading-relaxed text-slate-400">
             Introducing "Short & Sweet: A Collection of Cat Images" Embark on a
             delightful journey into the world of feline charm with our curated
             collection, "Short & Sweet." Dive into a plethora of captivating
