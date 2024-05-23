@@ -5,6 +5,7 @@ import { DELETE_USER_SAGA, GET_USER_LIST_SAGA } from "../../../action/action";
 import { DeleteOutlined } from "@ant-design/icons";
 import DrawerAddUser from "../../../Drawer/DrawerAddUser/DrawerAddUser";
 import DrawerUpdateUser from "../../../Drawer/DrawerUpdateUser/DrawerUpdateUser";
+import Swal from "sweetalert2";
 
 const Users = () => {
   const { userList } = useSelector((state) => state.reducerAdmin);
@@ -67,11 +68,19 @@ const Users = () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="cursor-pointer">
-            <DrawerUpdateUser user={record}/>
+            <DrawerUpdateUser user={record} />
             <DeleteOutlined
               className="text-red-500"
               onClick={() => {
-                dispatch({ type: DELETE_USER_SAGA, payload: record.userId });
+                if (record.role === "user") {
+                  dispatch({ type: DELETE_USER_SAGA, payload: record.userId });
+                  return;
+                }
+                Swal.fire({
+                  title: "Information!",
+                  text: "Member role is administrator, can't be delete",
+                  icon: "error",
+                });
               }}
             />
           </Space>

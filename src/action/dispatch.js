@@ -4,6 +4,8 @@ import {
   GET_IMG_LIST,
   GET_IMG_LIST_SAGA,
   SEARCH_IMAGE_SAGA,
+  UPDATE_USER,
+  UPDATE_USER_SAGA,
 } from "./action";
 
 const getImgListSaga = () => ({
@@ -25,4 +27,13 @@ const addUser = (payload) => ({
   payload,
 });
 
-export { getImgListSaga, getImgList, searchImgByName, addUserSaga, addUser };
+const updateUserSaga = (payload) => ({
+  type: UPDATE_USER_SAGA,
+  payload,
+});
+const updateUser = (payload) => ({
+  type: UPDATE_USER,
+  payload,
+});
+
+export { getImgListSaga, getImgList, searchImgByName, addUserSaga, addUser, updateUserSaga, updateUser };

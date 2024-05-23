@@ -33,11 +33,12 @@ import {
   SEARCH_IMAGE_SAGA,
   SWITCH_TAB,
   UPDATE_USER_INFO,
+  UPDATE_USER_SAGA,
   USER_INFO_SAGA,
 } from "../../action/action";
 import { message } from "antd";
 import Swal from "sweetalert2";
-import { addUser, getImgList } from "../../action/dispatch";
+import { addUser, getImgList, updateUser } from "../../action/dispatch";
 
 function* getImgListAction() {
   try {
@@ -366,7 +367,6 @@ function* deleteUserAction(action) {
   const { payload } = action;
   try {
     const { data } = yield call(capstoneService.deleteUser, payload);
-    console.log("🚀 ~ function*deleteUserAction ~ data:", data);
 
     if (data.status === 200) {
       yield put({
@@ -406,6 +406,20 @@ function* addUserAction(action) {
       icon: "error",
     });
     console.log("🚀 ~ function*addUserAction ~ error:", error);
+  }
+}
+
+function* updateUserAction(action) {
+  const { payload } = action;
+  try {
+    const { data } = yield call(capstoneService.updateUser, payload);
+    console.log("🚀 ~ function*updateUserAction ~ data:", data.data)
+
+    if (data.status === 200) {
+      yield put(updateUser(data.data));
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*updateUserAction ~ error:", error);
   }
 }
 
@@ -479,4 +493,8 @@ export function* previewDeleteUserAction() {
 
 export function* previewAddUserAction() {
   yield takeLatest(ADD_USER_SAGA, addUserAction);
+}
+
+export function* previewUpdateUserAction() {
+  yield takeLatest(UPDATE_USER_SAGA, updateUserAction);
 }

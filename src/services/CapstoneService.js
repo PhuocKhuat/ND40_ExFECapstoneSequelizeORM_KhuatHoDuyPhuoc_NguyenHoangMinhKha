@@ -40,6 +40,8 @@ export class CapstoneService {
   deleteUser = (payload) => http.delete(`/user/delete-user/?UserId=${payload}`);
 
   addUser = (payload) => http.post("/user/add-user", payload);
+
+  updateUser = (payload) => http.put("/user/update-user", payload);
 }
 
 export const capstoneService = new CapstoneService();
