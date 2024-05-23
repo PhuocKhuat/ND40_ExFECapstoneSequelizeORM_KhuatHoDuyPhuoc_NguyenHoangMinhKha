@@ -8,75 +8,54 @@ import {
   MDBTypography,
 } from "mdb-react-ui-kit";
 
-export default function ListChat() {
+export default function ListChat({ userList, handleSelectFriend }) {
+  const renderUserList = () =>
+    userList.map((user) => (
+      <li
+        className="p-2 border-bottom"
+        style={{ backgroundColor: "#eee" }}
+        key={user.userId}
+        onClick={() => {
+          handleSelectFriend(user);
+        }}
+      >
+        <a href="#!" className="d-flex justify-content-between">
+          <div className="flex items-center">
+            <img
+              src="/imgs/icon-user.jpg"
+              alt="avatar"
+              className="rounded-full flex align-self-center me-3 shadow-1-strong w-10 h-10"
+            />
+            <div className="pt-1">
+              <p className="fw-bold mb-0">{user.fullName}</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    ));
+
   return (
     <div className="flex justify-end">
       <div className="fixed">
         <MDBContainer
           fluid
-          className="py-5 w-44 h-screen"
+          className="py-5 w-52 h-screen"
           style={{ backgroundColor: "#eee" }}
         >
           <MDBRow>
             <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0">
-              <h5 className="font-weight-bold mb-3 text-center text-lg-start">
-                Member
+              <h5 className="font-weight-bold mb-3 text-center text-lg-start font-medium">
+                Contact person
               </h5>
 
               <MDBCard>
                 <MDBCardBody>
-                  <MDBTypography listUnStyled className="mb-0">
-                    <li
-                      className="p-2 border-bottom"
-                      style={{ backgroundColor: "#eee" }}
-                    >
-                      <a href="#!" className="d-flex justify-content-between">
-                        <div className="flex items-center">
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
-                            alt="avatar"
-                            className="rounded-full flex align-self-center me-3 shadow-1-strong w-10 h-10"
-                          />
-                          <div className="pt-1">
-                            <p className="fw-bold mb-0">John Doe</p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li
-                      className="p-2 border-bottom"
-                      style={{ backgroundColor: "#eee" }}
-                    >
-                      <a href="#!" className="d-flex justify-content-between">
-                        <div className="flex items-center">
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
-                            alt="avatar"
-                            className="rounded-full flex align-self-center me-3 shadow-1-strong w-10 h-10"
-                          />
-                          <div className="pt-1">
-                            <p className="fw-bold mb-0">John Doe</p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li
-                      className="p-2 border-bottom"
-                      style={{ backgroundColor: "#eee" }}
-                    >
-                      <a href="#!" className="d-flex justify-content-between">
-                        <div className="flex items-center">
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
-                            alt="avatar"
-                            className="rounded-full flex align-self-center me-3 shadow-1-strong w-10 h-10"
-                          />
-                          <div className="pt-1">
-                            <p className="fw-bold mb-0">John Doe</p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
+                  <MDBTypography
+                    listUnStyled
+                    className="mb-0 overflow-y-scroll"
+                    style={{ height: "500px" }}
+                  >
+                    {renderUserList()}
                   </MDBTypography>
                 </MDBCardBody>
               </MDBCard>

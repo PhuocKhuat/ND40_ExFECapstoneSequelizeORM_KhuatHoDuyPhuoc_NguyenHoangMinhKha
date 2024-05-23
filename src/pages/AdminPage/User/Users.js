@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { Space, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_USER_SAGA, GET_USER_LIST_SAGA } from "../../../action/action";
+import { DELETE_USER_SAGA } from "../../../action/action";
 import { DeleteOutlined } from "@ant-design/icons";
 import DrawerAddUser from "../../../Drawer/DrawerAddUser/DrawerAddUser";
 import DrawerUpdateUser from "../../../Drawer/DrawerUpdateUser/DrawerUpdateUser";
 import Swal from "sweetalert2";
+import { getUserListSaga } from "../../../action/dispatch";
 
 const Users = () => {
   const { userList } = useSelector((state) => state.reducerAdmin);
@@ -14,7 +15,7 @@ const Users = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: GET_USER_LIST_SAGA });
+    dispatch(getUserListSaga());
   }, []);
 
   const columns = [

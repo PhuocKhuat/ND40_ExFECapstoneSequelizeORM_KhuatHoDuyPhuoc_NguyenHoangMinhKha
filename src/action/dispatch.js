@@ -3,6 +3,8 @@ import {
   ADD_USER_SAGA,
   GET_IMG_LIST,
   GET_IMG_LIST_SAGA,
+  GET_USER_LIST,
+  GET_USER_LIST_SAGA,
   SEARCH_IMAGE_SAGA,
   UPDATE_USER,
   UPDATE_USER_SAGA,
@@ -36,4 +38,22 @@ const updateUser = (payload) => ({
   payload,
 });
 
-export { getImgListSaga, getImgList, searchImgByName, addUserSaga, addUser, updateUserSaga, updateUser };
+const getUserListSaga = () => ({
+  type: GET_USER_LIST_SAGA,
+});
+const getUserList = (payload) => ({
+  type: GET_USER_LIST,
+  payload
+});
+
+export {
+  getImgListSaga,
+  getImgList,
+  searchImgByName,
+  addUserSaga,
+  addUser,
+  updateUserSaga,
+  updateUser,
+  getUserListSaga,
+  getUserList
+};

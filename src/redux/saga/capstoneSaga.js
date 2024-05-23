@@ -19,7 +19,6 @@ import {
   GET_CREATED_IMAGE_SAGA,
   GET_IMG_INFO,
   GET_IMG_INFO_SAGA,
-  GET_IMG_LIST,
   GET_IMG_LIST_SAGA,
   GET_SAVED_IMAGE,
   GET_SAVED_IMAGE_SAGA,
@@ -38,7 +37,7 @@ import {
 } from "../../action/action";
 import { message } from "antd";
 import Swal from "sweetalert2";
-import { addUser, getImgList, updateUser } from "../../action/dispatch";
+import { addUser, getImgList, getUserList, updateUser } from "../../action/dispatch";
 
 function* getImgListAction() {
   try {
@@ -353,10 +352,7 @@ function* getUserListAction() {
     const { data } = yield call(capstoneService.getUserList);
 
     if (data.status === 200) {
-      yield put({
-        type: GET_USER_LIST,
-        payload: data.data,
-      });
+      yield put(getUserList(data.data));
     }
   } catch (error) {
     console.log("🚀 ~ function*getUserListAction ~ error:", error);
