@@ -6,6 +6,7 @@ import {
   GET_IMG_LIST_SAGA,
   GET_USER_LIST,
   GET_USER_LIST_SAGA,
+  RESET_DATA_CHAT,
   SEARCH_IMAGE_SAGA,
   UPDATE_USER,
   UPDATE_USER_SAGA,
@@ -44,12 +45,17 @@ const getUserListSaga = () => ({
 });
 const getUserList = (payload) => ({
   type: GET_USER_LIST,
-  payload
+  payload,
 });
 
 const getDataChat = (payload) => ({
   type: DATA_CHAT,
-  payload
+  payload,
+});
+
+const resetDataChat = (payload) => ({
+  type: RESET_DATA_CHAT,
+  payload,
 });
 
 export {
@@ -62,5 +68,6 @@ export {
   updateUser,
   getUserListSaga,
   getUserList,
-  getDataChat
+  getDataChat,
+  resetDataChat,
 };

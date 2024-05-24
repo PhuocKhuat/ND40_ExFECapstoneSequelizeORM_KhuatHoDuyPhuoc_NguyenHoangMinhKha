@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -10,47 +10,70 @@ import {
 } from "mdb-react-ui-kit";
 import { Field, Form, Formik, useFormik } from "formik";
 import { CloseOutlined } from "@ant-design/icons";
-import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataChat } from "../../../../action/dispatch";
+import { getDataChat, resetDataChat } from "../../../../action/dispatch";
 
-const socket = io("ws://localhost:8081");
-
-export default function WindowChat({ open, close, selectedFriend }) {
+export default function WindowChat({
+  open,
+  close,
+  selectedFriend,
+  users,
+  socket,
+}) {
   console.log("🚀 ~ WindowChat ~ selectedFriend:", selectedFriend);
 
   const initialValues = {
     message: "",
   };
-  const { values, handleSubmit, handleChange, handleBlur } = useFormik({
-    initialValues,
-    onSubmit: (values) => {
-      console.log("🚀 ~ WindowChat ~ values:", values);
-      socket.emit("send-message", {
-        content: values.message,
-        dateTime: new Date(),
-        userId: selectedFriend.userId,
-      });
-    },
-  });
+
+  const { values, handleSubmit, handleChange, handleBlur, resetForm } =
+    useFormik({
+      initialValues,
+      onSubmit: (values) => {
+        console.log("🚀 ~ WindowChat ~ values:", values);
+
+        let roomId = localStorage.getItem("ROOM_ID");
+
+        socket.emit("send-message", {
+          content: values.message,
+          roomId,
+          dateTime: new Date(),
+          userId: users.data.userId, // Ensure the current user's ID is sent
+        });
+        console.log("🚀 ~ selectedFriend.userId:", selectedFriend.userId);
+
+        resetForm();
+      },
+    });
 
   const { dataChat } = useSelector((state) => state.reducer);
-  // console.log("🚀 ~ WindowChat ~ dataChat:", dataChat);
-  const { users } = useSelector((state) => state.reducerLogin);
-  // console.log("🚀 ~ WindowChat ~ users:", users.data.userId);
 
   const dispatch = useDispatch();
 
-  socket.on("response-message", (data) => {
-    dispatch(getDataChat(data));
-  });
+  useEffect(() => {
+    const handleResponseMessage = (data) => {
+      dispatch(getDataChat(data));
+    };
+
+    const handleDataChat = (dataArray) => {
+      dispatch(resetDataChat(dataArray));
+    };
+
+    socket.on("response-message", handleResponseMessage);
+
+    socket.on("data-chat", handleDataChat);
+
+    return () => {
+      socket.off("response-message", handleResponseMessage);
+      socket.off("data-chat", handleDataChat);
+    };
+  }, [socket, dispatch]);
 
   const renderDataChat = () =>
     dataChat.map((chat) => {
-      // console.log("🚀 ~ WindowChat ~ chat:", chat.userId);
-      return chat.userId === users.data.userId ? (
-        <div>
-          <div className="text-sm text-center">{chat.dateTime}</div>
+      return chat.user_id === users.data.userId ? (
+        <div key={chat.id}>
+          <div className="text-sm text-center">{chat.date_time}</div>
           <div className="flex justify-end mb-4">
             <div
               className="p-3 me-3 border"
@@ -64,20 +87,23 @@ export default function WindowChat({ open, close, selectedFriend }) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-start my-1 p-2">
-          <img
-            src="/imgs/icon-user.jpg"
-            alt="avatar 1"
-            className="h-8 w8 rounded-full"
-          />
-          <div
-            className="p-3 ms-3"
-            style={{
-              borderRadius: "15px",
-              backgroundColor: "rgba(57, 192, 237,.2)",
-            }}
-          >
-            <p className="text-sm mb-0">{chat.content}</p>
+        <div key={chat.id}>
+          <div className="text-sm text-center">{chat.date_time}</div>
+          <div className="flex justify-start my-1 p-2">
+            <img
+              src="/imgs/icon-user.jpg"
+              alt="avatar 1"
+              className="h-8 w8 rounded-full"
+            />
+            <div
+              className="p-3 ms-3"
+              style={{
+                borderRadius: "15px",
+                backgroundColor: "rgba(57, 192, 237,.2)",
+              }}
+            >
+              <p className="text-sm mb-0">{chat.content}</p>
+            </div>
           </div>
         </div>
       );
@@ -98,7 +124,7 @@ export default function WindowChat({ open, close, selectedFriend }) {
             <MDBCol md="8" lg="6" xl="4" style={{ width: "305px" }}>
               <MDBCard id="chat1" style={{ borderRadius: "15px" }}>
                 <MDBCardHeader
-                  className="flex justify-between items-center p-2  text-white border-b-2"
+                  className="flex justify-between items-center p-2 text-white border-b-2"
                   style={{
                     borderTopLeftRadius: "15px",
                     borderTopRightRadius: "15px",
@@ -112,7 +138,7 @@ export default function WindowChat({ open, close, selectedFriend }) {
                     />
                     <div>
                       <p className="text-black">{selectedFriend.fullName}</p>
-                      <p className="text-sm text-gray-400">Is Activing</p>
+                      <p className="text-sm text-gray-400">Is activing</p>
                     </div>
                   </div>
 

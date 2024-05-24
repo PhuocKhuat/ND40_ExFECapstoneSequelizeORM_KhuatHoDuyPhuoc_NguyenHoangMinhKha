@@ -8,7 +8,7 @@ import {
   MDBTypography,
 } from "mdb-react-ui-kit";
 
-export default function ListChat({ userList, handleSelectFriend }) {
+export default function ListChat({ userList, handleSelectFriend, users, socket }) {
   const renderUserList = () =>
     userList.map((user) => (
       <li
@@ -17,6 +17,16 @@ export default function ListChat({ userList, handleSelectFriend }) {
         key={user.userId}
         onClick={() => {
           handleSelectFriend(user);
+
+          let roomId = "";
+
+          if (user.userId > users.data.userId) {
+            roomId = `${users.data.userId} - ${user.userId}`;
+          } else {
+            roomId = `${user.userId} - ${users.data.userId}`;
+          }
+          localStorage.setItem("ROOM_ID", roomId);
+          socket.emit("join-room", roomId);
         }}
       >
         <a href="#!" className="d-flex justify-content-between">

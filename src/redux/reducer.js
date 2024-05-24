@@ -1,4 +1,9 @@
-import { ADD_IMAGES, DATA_CHAT, GET_IMG_LIST } from "../action/action";
+import {
+  ADD_IMAGES,
+  DATA_CHAT,
+  GET_IMG_LIST,
+  RESET_DATA_CHAT,
+} from "../action/action";
 
 const initialState = {
   imgList: [],
@@ -17,6 +22,9 @@ export let reducer = (state = initialState, { type, payload }) => {
     case DATA_CHAT:
       let cloneDataChat = [...state.dataChat, payload];
       return { ...state, dataChat: cloneDataChat };
+
+    case RESET_DATA_CHAT:
+      return { ...state, dataChat: payload };
 
     default:
       return state;
