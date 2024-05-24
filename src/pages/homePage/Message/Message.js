@@ -27,6 +27,7 @@ export default function Message() {
   useEffect(() => {
     dispatch(getUserListSaga());
   }, []);
+  
   return (
     <div>
       <div>

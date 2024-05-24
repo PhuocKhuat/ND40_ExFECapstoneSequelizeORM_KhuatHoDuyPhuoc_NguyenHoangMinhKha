@@ -1,6 +1,7 @@
 import {
   ADD_USER,
   ADD_USER_SAGA,
+  DATA_CHAT,
   GET_IMG_LIST,
   GET_IMG_LIST_SAGA,
   GET_USER_LIST,
@@ -46,6 +47,11 @@ const getUserList = (payload) => ({
   payload
 });
 
+const getDataChat = (payload) => ({
+  type: DATA_CHAT,
+  payload
+});
+
 export {
   getImgListSaga,
   getImgList,
@@ -55,5 +61,6 @@ export {
   updateUserSaga,
   updateUser,
   getUserListSaga,
-  getUserList
+  getUserList,
+  getDataChat
 };

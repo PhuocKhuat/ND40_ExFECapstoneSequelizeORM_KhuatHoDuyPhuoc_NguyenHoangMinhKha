@@ -16,7 +16,7 @@ export default function LoginPage() {
   const dispatch = useDispatch();
 
   const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: initialValues,
+    initialValues,
     validationSchema: loginValidation,
     onSubmit: (values) => {
       console.log("🚀 ~ LoginPage ~ values:", values);

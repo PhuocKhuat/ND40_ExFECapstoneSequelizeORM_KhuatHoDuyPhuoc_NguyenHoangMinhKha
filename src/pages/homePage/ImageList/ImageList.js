@@ -16,10 +16,10 @@ export default function ImageList() {
 
   const imageList = () =>
     imgList !== "" ? (
-      imgList.map((item) => (
+      imgList.map((item, index) => (
         <NavLink
           to={`/img-info/${item.imgId}`}
-          className="xl:w-1/4 md:w-1/3 p-4"
+          className="xl:w-1/4 md:w-1/3 p-4" key={index}
         >
           <div className="bg-gray-100 p-6 rounded-lg w-1/4 md:w-full">
             <img
