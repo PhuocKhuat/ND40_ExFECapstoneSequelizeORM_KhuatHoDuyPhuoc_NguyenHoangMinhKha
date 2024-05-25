@@ -4,6 +4,7 @@ import ImageList from "./ImageList/ImageList";
 import Introduction from "./Introduction/Introduction";
 import "../../common/styleCommon.css";
 import PetService from "./PetService/PetService";
+import Feedback from "./Feedback/Feedback";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <Introduction />
       <ImageList />
       <PetService />
+      <Feedback />
     </div>
   );
 }

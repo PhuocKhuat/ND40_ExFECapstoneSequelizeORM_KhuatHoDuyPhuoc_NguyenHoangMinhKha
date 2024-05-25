@@ -46,7 +46,7 @@ export default function ListChat({ userList, handleSelectFriend, users, socket }
 
   return (
     <div className="flex justify-end">
-      <div className="fixed">
+      <div className="fixed z-50">
         <MDBContainer
           fluid
           className="py-5 w-52 h-screen"

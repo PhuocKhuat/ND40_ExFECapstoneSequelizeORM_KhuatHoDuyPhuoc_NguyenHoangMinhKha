@@ -1,0 +1,112 @@
+.feedback {
+  .content {
+    background-image: url("../../../images/border_case_study.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 380px;
+    padding: 3em 2em 0em;
+  }
+}
+
+@media screen and (max-width: 1286px) {
+  .content {
+    background-size: cover !important;
+  }
+  .chat {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .content {
+    background-size: 100% !important;
+  }
+}
+
+@media screen and (max-width: 1225px) {
+  .content {
+    background-size: 101% !important;
+  }
+}
+
+@media screen and (max-width: 1115px) {
+  .content {
+    background-size: 105% !important;
+  }
+}
+
+@media screen and (max-width: 1058px) {
+  .content {
+    background-size: 108% !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    background-size: 80% !important;
+  }
+  .chat {
+    width: 80%;
+  }
+  .container{
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .content {
+    background-size: 84% !important;
+  }
+  .chat {
+    width: 84%;
+  }
+  .ceo{
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 672px) {
+  .content {
+    background-size: 88% !important;
+  }
+  .chat {
+    width: 88%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .content {
+    background-size: 92% !important;
+  }
+  .chat {
+    width: 92%;
+  }
+}
+
+@media screen and (max-width: 595px) {
+  .content {
+    background-size: 100% !important;
+  }
+  .chat {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 595px) {
+  .content {
+    background-size: 104% !important;
+  }
+  .chat {
+    width: 104%;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .content {
+    background-size: 100% !important;
+  }
+  .chat {
+    width: 104%;
+  }
+}
