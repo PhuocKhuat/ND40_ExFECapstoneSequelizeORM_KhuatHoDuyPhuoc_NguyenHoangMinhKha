@@ -42,6 +42,8 @@ export class CapstoneService {
   addUser = (payload) => http.post("/user/add-user", payload);
 
   updateUser = (payload) => http.put("/user/update-user", payload);
+
+  updateAvatar = (payload) => http.post("/user/upload-avatar", payload);
 }
 
 export const capstoneService = new CapstoneService();

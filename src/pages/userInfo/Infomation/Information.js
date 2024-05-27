@@ -3,16 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styleInformation.scss";
 import UserInfo from "../UserInfo/UserInfo";
 import { Modal } from "antd";
-import { UPDATE_USER_FORM_INITIAL } from "../../../action/action";
+import { BASE_IMG_URL, UPDATE_USER_FORM_INITIAL } from "../../../action/action";
 import ModalUpload from "../ModalUpload/ModalUpload";
 
 export default function Information() {
   const { users } = useSelector((state) => state.reducerLogin);
-  const { updateUserInfo } = useSelector((state) => state.reducerUserInfo);
-  console.log("🚀 ~ Information ~ updateUserInfo:", updateUserInfo);
+  const { updateUserInfo, uploadAvatar } = useSelector(
+    (state) => state.reducerUserInfo
+  );
+  console.log("🚀 ~ Information ~ uploadAvatar:", uploadAvatar);
+  // console.log("🚀 ~ Information ~ updateUserInfo:", updateUserInfo);
   // console.log("🚀 ~ Information ~ users:", users);
 
   const dispatch = useDispatch();
+
+  const [thumb, setThumb] = useState("/imgs/icon-user.jpg");
+  console.log("🚀 ~ Information ~ thumb:", thumb);
+  useEffect(() => {
+    if (uploadAvatar?.avatar) {
+      setThumb(`${BASE_IMG_URL}/${uploadAvatar?.avatar}`);
+    } 
+  }, [uploadAvatar, setThumb]);
 
   useEffect(() => {
     dispatch({
@@ -43,11 +54,11 @@ export default function Information() {
         <img
           className="lg:w-1/4 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded-full"
           alt="hero"
-          src="/imgs/icon-user.jpg"
+          src={thumb}
           onClick={showUploadModal}
         />
         <Modal open={isUploadModalOpen} onCancel={handleUploadCancel} footer>
-          <ModalUpload handleUploadCancel={handleUploadCancel}/>
+          <ModalUpload handleUploadCancel={handleUploadCancel} initialThumb={thumb}/>
         </Modal>
         <div className="text-center lg:w-2/3 w-full text-white">
           <h1 className="title-font sm:text-4xl text-xl mb-4 font-medium text-gray-900">

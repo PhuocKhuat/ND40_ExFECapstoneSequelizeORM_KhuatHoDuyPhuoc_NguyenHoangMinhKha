@@ -5,6 +5,7 @@ import {
   GET_SAVED_IMAGE,
   IS_HOVERING_CREATED_IMAGE,
   IS_HOVERING_SAVED_IMAGE,
+  UPDATE_AVATAR,
   UPDATE_USER_FORM,
   UPDATE_USER_FORM_INITIAL,
   UPDATE_USER_INFO,
@@ -16,6 +17,7 @@ const initialState = {
   isHovering: -1,
   listOfCreatedImage: [],
   updateUserInfo: new UserInfo(),
+  uploadAvatar: {},
 };
 
 export let reducerUserInfo = (state = initialState, { type, payload }) => {
@@ -48,13 +50,16 @@ export let reducerUserInfo = (state = initialState, { type, payload }) => {
 
     case UPDATE_USER_FORM:
       return { ...state, updateUserInfo: payload };
-      
+
     case UPDATE_USER_FORM_INITIAL:
       return { ...state, updateUserInfo: payload };
 
     case UPDATE_USER_INFO:
       return { ...state, updateUserInfo: payload };
-      
+
+    case UPDATE_AVATAR:
+      return { ...state, uploadAvatar: payload };
+
     default:
       return state;
   }

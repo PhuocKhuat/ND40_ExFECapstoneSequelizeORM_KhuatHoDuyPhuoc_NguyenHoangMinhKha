@@ -31,13 +31,20 @@ import {
   SEARCH_IMAGE,
   SEARCH_IMAGE_SAGA,
   SWITCH_TAB,
+  UPDATE_AVATAR_SAGA,
   UPDATE_USER_INFO,
   UPDATE_USER_SAGA,
   USER_INFO_SAGA,
 } from "../../action/action";
 import { message } from "antd";
 import Swal from "sweetalert2";
-import { addUser, getImgList, getUserList, updateUser } from "../../action/dispatch";
+import {
+  addUser,
+  getImgList,
+  getUserList,
+  updateAvatar,
+  updateUser,
+} from "../../action/dispatch";
 
 function* getImgListAction() {
   try {
@@ -409,13 +416,28 @@ function* updateUserAction(action) {
   const { payload } = action;
   try {
     const { data } = yield call(capstoneService.updateUser, payload);
-    console.log("🚀 ~ function*updateUserAction ~ data:", data.data)
+    console.log("🚀 ~ function*updateUserAction ~ data:", data.data);
 
     if (data.status === 200) {
       yield put(updateUser(data.data));
     }
   } catch (error) {
     console.log("🚀 ~ function*updateUserAction ~ error:", error);
+  }
+}
+
+function* updateAvatarAction(action) {
+  const { payload } = action;
+  console.log("🚀 ~ function*updateAvatarAction ~ payload:", payload);
+
+  try {
+    const { data } = yield call(capstoneService.updateAvatar, payload);
+
+    if (data.status === 200) {
+      yield put(updateAvatar(data.data));
+    }
+  } catch (error) {
+    console.log("🚀 ~ function*updateAvatarAction ~ error:", error);
   }
 }
 
@@ -493,4 +515,8 @@ export function* previewAddUserAction() {
 
 export function* previewUpdateUserAction() {
   yield takeLatest(UPDATE_USER_SAGA, updateUserAction);
+}
+
+export function* previewUpdateAvatarAction() {
+  yield takeLatest(UPDATE_AVATAR_SAGA, updateAvatarAction);
 }

@@ -1,27 +1,33 @@
 import { Field, Form, Formik, useFormik } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateAvatarSaga } from "../../../action/dispatch";
 
-export default function ModalUpload({ handleUploadCancel }) {
+export default function ModalUpload({ handleUploadCancel, initialThumb }) {
+  const dispatch = useDispatch();
+
   const initialValues = {
-    avatar: "",
+    avatar: {},
   };
   const { values, handleBlur, handleSubmit, setFieldValue } = useFormik({
     initialValues,
     onSubmit: (values) => {
-      console.log("🚀 ~ ModalUpload ~ values:", values);
+      console.log("🚀 ~ ModalUpload ~ values:", values.avatar);
+      const formData = new FormData();
+      formData.append("avatar", values.avatar);
+      dispatch(updateAvatarSaga(formData));
+      handleUploadCancel();
     },
   });
 
-  const [thumb, setThumb] = useState({
-    avatar: "/imgs/icon-user.jpg",
-  });
+  const [thumb, setThumb] = useState(initialThumb || "/imgs/icon-user.jpg");
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {
-      setThumb({avatar: e.target.result});
+      setThumb(e.target.result);
       setFieldValue("avatar", file);
     };
   };
@@ -35,7 +41,7 @@ export default function ModalUpload({ handleUploadCancel }) {
           </div>
           <div className="flex justify-center mt-8">
             <div>
-              <img alt="user" src={thumb.avatar} />
+              <img alt="user" src={thumb} />
               <Field
                 type="file"
                 name="avatar"

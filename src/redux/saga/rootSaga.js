@@ -17,6 +17,7 @@ import {
   previewSaveImageAction,
   previewSearchAction,
   previewSignupAction,
+  previewUpdateAvatarAction,
   previewUpdateUserAction,
   previewUpdateUserInfoAction,
 } from "./capstoneSaga";
@@ -42,5 +43,6 @@ export default function* rootSaga() {
     previewDeleteUserAction(),
     previewAddUserAction(),
     previewUpdateUserAction(),
+    previewUpdateAvatarAction(),
   ]);
 }

@@ -8,6 +8,8 @@ import {
   GET_USER_LIST_SAGA,
   RESET_DATA_CHAT,
   SEARCH_IMAGE_SAGA,
+  UPDATE_AVATAR,
+  UPDATE_AVATAR_SAGA,
   UPDATE_USER,
   UPDATE_USER_SAGA,
 } from "./action";
@@ -37,6 +39,15 @@ const updateUserSaga = (payload) => ({
 });
 const updateUser = (payload) => ({
   type: UPDATE_USER,
+  payload,
+});
+
+const updateAvatarSaga = (payload) => ({
+  type: UPDATE_AVATAR_SAGA,
+  payload,
+});
+const updateAvatar = (payload) => ({
+  type: UPDATE_AVATAR,
   payload,
 });
 
@@ -70,4 +81,6 @@ export {
   getUserList,
   getDataChat,
   resetDataChat,
+  updateAvatarSaga,
+  updateAvatar,
 };
