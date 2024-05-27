@@ -14,7 +14,7 @@ import "./styleAddImage.scss";
 export default function AddImage() {
   const { imgList, isHovering } = useSelector((state) => state.reducerAddImage);
   // console.log("🚀 ~ AddImage ~ isHovering:", isHovering);
-  // console.log("🚀 ~ AddImage ~ imgList:", imgList);
+  console.log("🚀 ~ AddImage ~ imgList:", imgList);
   const dispatch = useDispatch();
 
   const initialValues = {

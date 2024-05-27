@@ -4,21 +4,22 @@ import "./styleInformation.scss";
 import UserInfo from "../UserInfo/UserInfo";
 import { Modal } from "antd";
 import { UPDATE_USER_FORM_INITIAL } from "../../../action/action";
+import ModalUpload from "../ModalUpload/ModalUpload";
 
 export default function Information() {
   const { users } = useSelector((state) => state.reducerLogin);
   const { updateUserInfo } = useSelector((state) => state.reducerUserInfo);
-  console.log("🚀 ~ Information ~ updateUserInfo:", updateUserInfo)
+  console.log("🚀 ~ Information ~ updateUserInfo:", updateUserInfo);
   // console.log("🚀 ~ Information ~ users:", users);
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch({
       type: UPDATE_USER_FORM_INITIAL,
       payload: users.data,
-    })
-  },[]);
+    });
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -28,19 +29,33 @@ export default function Information() {
     setIsModalOpen(false);
   };
 
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const showUploadModal = () => {
+    setIsUploadModalOpen(true);
+  };
+  const handleUploadCancel = () => {
+    setIsUploadModalOpen(false);
+  };
+
   return (
     <section className="text-gray-600 body-font information">
       <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
         <img
           className="lg:w-1/4 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded-full"
           alt="hero"
-          src="https://dummyimage.com/720x600"
+          src="/imgs/icon-user.jpg"
+          onClick={showUploadModal}
         />
+        <Modal open={isUploadModalOpen} onCancel={handleUploadCancel} footer>
+          <ModalUpload handleUploadCancel={handleUploadCancel}/>
+        </Modal>
         <div className="text-center lg:w-2/3 w-full text-white">
           <h1 className="title-font sm:text-4xl text-xl mb-4 font-medium text-gray-900">
             {updateUserInfo?.fullName}
           </h1>
-          <p className="mb-2 leading-relaxed text-lg">{updateUserInfo?.email}</p>
+          <p className="mb-2 leading-relaxed text-lg">
+            {updateUserInfo?.email}
+          </p>
           <p className="mb-2 leading-relaxed text-lg">{updateUserInfo?.age}</p>
           <p className="mb-6 leading-relaxed">0 people are following</p>
           <div className="flex justify-center space-x-5">
@@ -54,7 +69,7 @@ export default function Information() {
               Edit information
             </button>
             <Modal open={isModalOpen} onCancel={handleCancel} footer>
-              <UserInfo handleCancel={handleCancel}/>
+              <UserInfo handleCancel={handleCancel} />
             </Modal>
           </div>
         </div>
