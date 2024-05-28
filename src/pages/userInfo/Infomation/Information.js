@@ -13,16 +13,22 @@ export default function Information() {
   );
   console.log("🚀 ~ Information ~ uploadAvatar:", uploadAvatar);
   // console.log("🚀 ~ Information ~ updateUserInfo:", updateUserInfo);
-  // console.log("🚀 ~ Information ~ users:", users);
+  console.log("🚀 ~ Information ~ users:", users);
 
   const dispatch = useDispatch();
 
-  const [thumb, setThumb] = useState("/imgs/icon-user.jpg");
-  console.log("🚀 ~ Information ~ thumb:", thumb);
+  const [thumb, setThumb] = useState(
+    "/imgs/icon-user.jpg" && localStorage.getItem("UPLOAD_AVATAR")
+  );
+  // console.log("🚀 ~ Information ~ thumb:", thumb);
   useEffect(() => {
     if (uploadAvatar?.avatar) {
       setThumb(`${BASE_IMG_URL}/${uploadAvatar?.avatar}`);
-    } 
+      localStorage.setItem(
+        "UPLOAD_AVATAR",
+        `${BASE_IMG_URL}/${users.data?.avatar}`
+      );
+    }
   }, [uploadAvatar, setThumb]);
 
   useEffect(() => {
@@ -58,7 +64,10 @@ export default function Information() {
           onClick={showUploadModal}
         />
         <Modal open={isUploadModalOpen} onCancel={handleUploadCancel} footer>
-          <ModalUpload handleUploadCancel={handleUploadCancel} initialThumb={thumb}/>
+          <ModalUpload
+            handleUploadCancel={handleUploadCancel}
+            initialThumb={thumb}
+          />
         </Modal>
         <div className="text-center lg:w-2/3 w-full text-white">
           <h1 className="title-font sm:text-4xl text-xl mb-4 font-medium text-gray-900">

@@ -8,12 +8,12 @@ import { useDispatch } from "react-redux";
 import { POST_LOGIN_SAGA } from "../../../action/action";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+
   const initialValues = {
     email: "",
     password: "",
   };
-
-  const dispatch = useDispatch();
 
   const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,

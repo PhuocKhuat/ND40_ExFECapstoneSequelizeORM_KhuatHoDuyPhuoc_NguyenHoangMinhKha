@@ -12,6 +12,7 @@ import { Field, Form, Formik, useFormik } from "formik";
 import { CloseOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataChat, resetDataChat } from "../../../../action/dispatch";
+import { BASE_IMG_URL } from "../../../../action/action";
 
 export default function WindowChat({
   open,
@@ -20,6 +21,7 @@ export default function WindowChat({
   users,
   socket,
 }) {
+  // console.log("🚀 ~ users:", users)
   console.log("🚀 ~ WindowChat ~ selectedFriend:", selectedFriend);
 
   const initialValues = {
@@ -38,9 +40,8 @@ export default function WindowChat({
           content: values.message,
           roomId,
           dateTime: new Date(),
-          userId: users.data.userId, // Ensure the current user's ID is sent
+          userId: users.data.userId,
         });
-        console.log("🚀 ~ selectedFriend.userId:", selectedFriend.userId);
 
         resetForm();
       },
@@ -91,7 +92,7 @@ export default function WindowChat({
           <div className="text-sm text-center">{chat.date_time}</div>
           <div className="flex justify-start my-1 p-2">
             <img
-              src="/imgs/icon-user.jpg"
+              src={`${BASE_IMG_URL}/${chat.avatar}`}
               alt="avatar 1"
               className="h-8 w8 rounded-full"
             />
@@ -115,7 +116,10 @@ export default function WindowChat({
 
   return (
     <div className="flex justify-end">
-      <div className="fixed" style={{ width: "480px", marginTop: "150px" }}>
+      <div
+        className="fixed z-50"
+        style={{ width: "480px", marginTop: "150px" }}
+      >
         <MDBContainer
           className="pt-1 pb-3 bg-gray-100 rounded-l-lg rounded-r-lg"
           style={{ height: "500px" }}
@@ -132,7 +136,7 @@ export default function WindowChat({
                 >
                   <div className="flex items-center space-x-2">
                     <img
-                      src="/imgs/icon-user.jpg"
+                      src={`${BASE_IMG_URL}/${selectedFriend.avatar}`}
                       alt="avatar 1"
                       className="rounded-full h-10 w-10"
                     />

@@ -11,7 +11,7 @@ export default function Feedback() {
         <div className="lg:w-1/2 md:w-4/5 bg-white flex flex-col md:ml-auto w-full md:py-16 mt-8 md:mt-0">
           <div className="container">
             <div className="content">
-              <p className="w-4/5 chat">
+              <p className="w-full chat">
                 "We are excited to announce a community meetup for enthusiasts!
                 Join us for an afternoon of engaging conversations, networking,
                 and fun activities. Whether you're a veteran or new to the

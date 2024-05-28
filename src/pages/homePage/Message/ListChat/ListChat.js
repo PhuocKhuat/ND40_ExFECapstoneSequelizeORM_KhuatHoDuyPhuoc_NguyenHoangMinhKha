@@ -7,6 +7,7 @@ import {
   MDBCardBody,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import { BASE_IMG_URL } from "../../../../action/action";
 
 export default function ListChat({ userList, handleSelectFriend, users, socket }) {
   const renderUserList = () =>
@@ -32,7 +33,7 @@ export default function ListChat({ userList, handleSelectFriend, users, socket }
         <a href="#!" className="d-flex justify-content-between">
           <div className="flex items-center">
             <img
-              src="/imgs/icon-user.jpg"
+              src={`${BASE_IMG_URL}/${user.avatar}`}
               alt="avatar"
               className="rounded-full flex align-self-center me-3 shadow-1-strong w-10 h-10"
             />
@@ -46,7 +47,7 @@ export default function ListChat({ userList, handleSelectFriend, users, socket }
 
   return (
     <div className="flex justify-end">
-      <div className="fixed z-50">
+      <div className="fixed z-40">
         <MDBContainer
           fluid
           className="py-5 w-52 h-screen"
