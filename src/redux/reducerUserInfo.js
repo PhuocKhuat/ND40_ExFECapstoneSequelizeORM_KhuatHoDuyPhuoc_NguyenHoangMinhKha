@@ -17,7 +17,7 @@ const initialState = {
   isHovering: -1,
   listOfCreatedImage: [],
   updateUserInfo: new UserInfo(),
-  uploadAvatar: {},
+  uploadAvatar: localStorage.getItem("UPLOAD_AVATAR"),
 };
 
 export let reducerUserInfo = (state = initialState, { type, payload }) => {

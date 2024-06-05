@@ -17,18 +17,16 @@ export default function Information() {
 
   const dispatch = useDispatch();
 
-  const [thumb, setThumb] = useState(
-    "/imgs/icon-user.jpg" && localStorage.getItem("UPLOAD_AVATAR")
-  );
+  const [thumb, setThumb] = useState("/imgs/icon-user.jpg");
   // console.log("🚀 ~ Information ~ thumb:", thumb);
   useEffect(() => {
     if (uploadAvatar?.avatar) {
       setThumb(`${BASE_IMG_URL}/${uploadAvatar?.avatar}`);
-      localStorage.setItem(
-        "UPLOAD_AVATAR",
-        `${BASE_IMG_URL}/${users.data?.avatar}`
-      );
     }
+    localStorage.setItem(
+      "UPLOAD_AVATAR",
+      `${BASE_IMG_URL}/${users.data?.avatar}`
+    );
   }, [uploadAvatar, setThumb]);
 
   useEffect(() => {

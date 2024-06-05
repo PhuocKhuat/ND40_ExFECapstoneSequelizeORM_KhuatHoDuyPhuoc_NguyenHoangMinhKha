@@ -1,3 +1,4 @@
+
 import {
   ADD_USER,
   ADD_USER_SAGA,
@@ -6,6 +7,8 @@ import {
   GET_IMG_LIST_SAGA,
   GET_USER_LIST,
   GET_USER_LIST_SAGA,
+  IS_LOADING_OFF,
+  IS_LOADING_ON,
   RESET_DATA_CHAT,
   SEARCH_IMAGE_SAGA,
   UPDATE_AVATAR,
@@ -69,6 +72,14 @@ const resetDataChat = (payload) => ({
   payload,
 });
 
+const isLoadingOn = (payload) => ({
+  type: IS_LOADING_ON,
+});
+
+const isLoadingOff = (payload) => ({
+  type: IS_LOADING_OFF,
+});
+
 export {
   getImgListSaga,
   getImgList,
@@ -83,4 +94,6 @@ export {
   resetDataChat,
   updateAvatarSaga,
   updateAvatar,
+  isLoadingOn,
+  isLoadingOff,
 };

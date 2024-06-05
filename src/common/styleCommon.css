@@ -1,8 +1,18 @@
-.container{
-    margin: 0 auto;
-    width: 70%;
+* {
+  font-family: Google sans, Arial;
 }
-.container90{
-    margin: 0 auto;
-    width: 90%;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 70%;
+}
+.container90 {
+  margin: 0 auto;
+  width: 90%;
 }

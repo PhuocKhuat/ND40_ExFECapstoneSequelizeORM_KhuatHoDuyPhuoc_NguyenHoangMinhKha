@@ -2,6 +2,7 @@ import axios from "axios";
 import store from "..";
 import { REFRESH_TOKEN } from "../action/action";
 import { capstoneService } from "./CapstoneService";
+import { isLoadingOff, isLoadingOn } from "../action/dispatch";
 
 export const http = axios.create({
   baseURL: "http://localhost:8080",
@@ -29,16 +30,28 @@ async function refreshAuthLogic() {
   return data?.data?.token;
 }
 
+http.interceptors.request.use(
+  function (config) {
+    store.dispatch(isLoadingOn());
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
+
 http.interceptors.response.use(
   (response) => {
+    store.dispatch(isLoadingOff());
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
     if (
-      (error.response?.data?.message ===
-        "The token has expired, wrong security key or is invalid") ||
-      (error.name === "AxiosError")
+      error.response?.data?.message ===
+        "The token has expired, wrong security key or is invalid" ||
+      error.name === "AxiosError"
     ) {
       // store.dispatch({ type: REFRESH_TOKEN });
 
@@ -50,6 +63,8 @@ http.interceptors.response.use(
       // Retry the original request with the new token
       return http(originalRequest);
     }
+    store.dispatch(isLoadingOff());
+
     return Promise.reject(error);
   }
 );

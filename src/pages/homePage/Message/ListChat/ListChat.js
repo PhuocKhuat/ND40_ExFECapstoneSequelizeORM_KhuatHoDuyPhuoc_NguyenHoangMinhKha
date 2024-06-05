@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -9,7 +9,13 @@ import {
 } from "mdb-react-ui-kit";
 import { BASE_IMG_URL } from "../../../../action/action";
 
-export default function ListChat({ userList, handleSelectFriend, users, socket }) {
+export default function ListChat({
+  userList,
+  handleSelectFriend,
+  users,
+  socket,
+}) {
+
   const renderUserList = () =>
     userList.map((user) => (
       <li
