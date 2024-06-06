@@ -72,11 +72,11 @@ const resetDataChat = (payload) => ({
   payload,
 });
 
-const isLoadingOn = (payload) => ({
+const isLoadingOn = () => ({
   type: IS_LOADING_ON,
 });
 
-const isLoadingOff = (payload) => ({
+const isLoadingOff = () => ({
   type: IS_LOADING_OFF,
 });
 
